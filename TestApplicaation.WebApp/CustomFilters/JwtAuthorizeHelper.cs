@@ -55,7 +55,7 @@ namespace TestApplication.CustomFilters
             {
                 return true;
             }
-            context.Result = new RedirectToActionResult("Signin", "Home", null);
+            context.Result = new RedirectToActionResult("Login", "Home", null);
             return false;
 
         }
@@ -68,7 +68,7 @@ namespace TestApplication.CustomFilters
             using var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-           return  httpClient.GetAsync("http://localhost:5000/api/Auth/ActiveUser").Result;
+           return  httpClient.GetAsync("https://localhost:5001/api/Auth/ActiveUser").Result;
 
         }
 

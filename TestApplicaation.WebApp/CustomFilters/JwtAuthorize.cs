@@ -31,7 +31,7 @@ namespace TestApplication.CustomFilters
                 else if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     context.HttpContext.Session.Remove("token");
-                    context.Result = new RedirectToActionResult("Signin", "Home", null);
+                    context.Result = new RedirectToActionResult("Login", "Home", null);
                 }
                 else
                 {

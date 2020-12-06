@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TestApplication.Common\TestApplication.Common.csproj" />
     <ProjectReference Include="..\TestApplication.DataAccess\TestApplication.DataAccess.csproj" />
   </ItemGroup>
 

@@ -2,6 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TestApplication.BusinessLayer.Interfaces;
+using TestApplication.BusinessLayer.Managers;
+using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
+using TestApplication.DataAccess.EntityFrameworkCore.Repositories;
 
 namespace TestApplication.BusinessLayer.DependencyResolvers
 {
@@ -9,7 +13,13 @@ namespace TestApplication.BusinessLayer.DependencyResolvers
     {
         public static void AddDependencies(this IServiceCollection services)
         {
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+            services.AddScoped(typeof(IManagerBase<>), typeof(ManagerBase<>));
 
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IJwtManager, JwtManager>();
         }
 
     }

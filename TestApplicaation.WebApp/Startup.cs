@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TestApplication.BusinessLayer.DependencyResolvers;
 using TestApplication.Common.Helpers.StringInfos;
+using TestApplication.WebApp.Models.Interfaces;
+using TestApplication.WebApp.Models.Managers;
 
 namespace TestApplicaation.WebApp
 {
@@ -28,6 +30,8 @@ namespace TestApplicaation.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ILoggedUserProvider, LoggedUserProvider>();            
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMvc()
                 .AddJsonOptions(options =>
