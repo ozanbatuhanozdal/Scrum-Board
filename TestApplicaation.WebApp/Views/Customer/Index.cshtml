@@ -1,0 +1,120 @@
+﻿@using TestApplication.Common.Dto.UserDtos
+@model List<UserListDto>
+
+
+@{
+    ViewData["Title"] = "Index";
+
+
+}
+
+<link href="~/css/Datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/css/Datatables/responsive.bootstrap4.min.css" rel="stylesheet" />
+<style>
+
+    .hidetext {
+        -webkit-text-security: disc; /* Default */
+    }
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Employee List</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                    <li class="breadcrumb-item active">Employee</li>
+                    <li class="breadcrumb-item active">Index</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <a href="@Url.Action("Create", "Employee")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New User</a>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>User Surname</th>
+                                    <th>User Email</th>
+                                    <th>User Password</th>
+                                    <th>Edit/Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+
+                                    <tr>
+                                        <td> @user.UserName</td>
+                                        <td>@user.UserSurname</td>
+                                        <td>@user.EMail</td>
+                                        <td class="hidetext">@user.Password.ToString().Substring(0, 6)</td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Employee", new { id = user.UserId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
+                                            <a href="@Url.Action("Delete", "Employee", new { id = user.UserId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+
+
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>User Surname</th>
+                                    <th>User Email</th>
+                                    <th>User Password</th>
+                                    <th>Edit/Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+}
+<!-- /.content -->
+@section Scripts
+{
+    <script type="text/javascript" src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript" src="~/scripts/DataTables/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/responsive.bootstrap4.min.js"></script>
+    <script>
+        window.onload = (function () {
+            $("#example1").dataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "aaSorting": [],
+            });
+
+        });
+    </script>
+
+}

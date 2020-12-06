@@ -8,13 +8,20 @@ namespace TestApplication.Entities.Models
 {
     public class User : EntityBase
     {
-        [Required]
-        public string DeveloperName { get; set; }
-        [Required]
-        public string DeveloperPassword { get; set; }
+        [Key,Required]
+        public int UserId { get; set; }
 
-        public List<CustomerCard> customerCards { get; set; }
+        public string Email { get; set; }
 
-        public List<CustomerCardRow> customerCardRows { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Password { get; set; }
+
+        public virtual IList<CustomerCard> customerCards { get; set; }
+
+        public virtual  IList<CustomerCardRow> customerCardRows { get; set; }
+
+        public virtual IList<UserUserType> userUserTypes { get; set; }
     }
 }

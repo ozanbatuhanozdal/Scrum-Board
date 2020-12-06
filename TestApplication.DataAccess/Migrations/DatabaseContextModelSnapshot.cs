@@ -21,7 +21,7 @@ namespace TestApplication.DataAccess.Migrations
 
             modelBuilder.Entity("TestApplication.Entities.CustomerCardRow", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerCardRowId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -44,7 +44,7 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerCardRowId");
 
                     b.HasIndex("CustomerCardId");
 
@@ -55,7 +55,7 @@ namespace TestApplication.DataAccess.Migrations
 
             modelBuilder.Entity("TestApplication.Entities.Models.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -72,14 +72,14 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<string>("CustomerPhone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerId");
 
                     b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("TestApplication.Entities.Models.CustomerCard", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerCardId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -102,7 +102,7 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerCardId");
 
                     b.HasIndex("UserId");
 
@@ -111,7 +111,7 @@ namespace TestApplication.DataAccess.Migrations
 
             modelBuilder.Entity("TestApplication.Entities.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -119,17 +119,90 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeveloperName")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeveloperPassword")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            CreatedDate = new DateTime(2020, 12, 6, 6, 17, 45, 321, DateTimeKind.Local).AddTicks(4181),
+                            Email = "ozanbatuhanozdal@hotmail.com",
+                            Name = "Batuhan",
+                            Password = "123"
+                        });
+                });
+
+            modelBuilder.Entity("TestApplication.Entities.Models.UserType", b =>
+                {
+                    b.Property<int>("UserTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("UserTypeDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserTypeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserTypeId");
+
+                    b.ToTable("UserType");
+
+                    b.HasData(
+                        new
+                        {
+                            UserTypeId = 1,
+                            UserTypeDescription = "admin",
+                            UserTypeName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("TestApplication.Entities.Models.UserUserType", b =>
+                {
+                    b.Property<int>("UserUserTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserUserTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserTypeId");
+
+                    b.ToTable("userUserTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            UserUserTypeId = 1,
+                            CreatedDate = new DateTime(2020, 12, 6, 6, 17, 45, 322, DateTimeKind.Local).AddTicks(3665),
+                            UserId = 1,
+                            UserTypeId = 1
+                        });
                 });
 
             modelBuilder.Entity("TestApplication.Entities.CustomerCardRow", b =>
@@ -154,6 +227,25 @@ namespace TestApplication.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TestApplication.Entities.Models.UserUserType", b =>
+                {
+                    b.HasOne("TestApplication.Entities.Models.User", "user")
+                        .WithMany("userUserTypes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TestApplication.Entities.Models.UserType", "userType")
+                        .WithMany("userUserTypes")
+                        .HasForeignKey("UserTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+
+                    b.Navigation("userType");
+                });
+
             modelBuilder.Entity("TestApplication.Entities.Models.CustomerCard", b =>
                 {
                     b.Navigation("CustomerCardRows");
@@ -164,6 +256,13 @@ namespace TestApplication.DataAccess.Migrations
                     b.Navigation("customerCardRows");
 
                     b.Navigation("customerCards");
+
+                    b.Navigation("userUserTypes");
+                });
+
+            modelBuilder.Entity("TestApplication.Entities.Models.UserType", b =>
+                {
+                    b.Navigation("userUserTypes");
                 });
 #pragma warning restore 612, 618
         }

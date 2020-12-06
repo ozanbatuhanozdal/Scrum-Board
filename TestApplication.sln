@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.DataAccess", "TestApplication.DataAccess\TestApplication.DataAccess.csproj", "{08A13CD6-568A-499C-A3CE-2E6446B449A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApplication.DataAccess", "TestApplication.DataAccess\TestApplication.DataAccess.csproj", "{08A13CD6-568A-499C-A3CE-2E6446B449A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.BusinessLayer", "TestApplication.BusinessLayer\TestApplication.BusinessLayer.csproj", "{67AD431B-142A-4D09-B0AF-39FAEE27A09B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApplication.BusinessLayer", "TestApplication.BusinessLayer\TestApplication.BusinessLayer.csproj", "{67AD431B-142A-4D09-B0AF-39FAEE27A09B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication.Entities", "TestApplication.Entities\TestApplication.Entities.csproj", "{29D14FC0-9788-4643-8884-D8624D11BCE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApplication.Entities", "TestApplication.Entities\TestApplication.Entities.csproj", "{29D14FC0-9788-4643-8884-D8624D11BCE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplicaation.WebApp", "TestApplicaation.WebApp\TestApplicaation.WebApp.csproj", "{54134F75-691B-44E0-B2DD-C642AC0F8CED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApplication.WebApp", "TestApplicaation.WebApp\TestApplication.WebApp.csproj", "{54134F75-691B-44E0-B2DD-C642AC0F8CED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApplication.Common", "TestApplication.Common\TestApplication.Common.csproj", "{63FCEA20-01AA-4264-BB84-EB11DD7375CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{54134F75-691B-44E0-B2DD-C642AC0F8CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54134F75-691B-44E0-B2DD-C642AC0F8CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54134F75-691B-44E0-B2DD-C642AC0F8CED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FCEA20-01AA-4264-BB84-EB11DD7375CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FCEA20-01AA-4264-BB84-EB11DD7375CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FCEA20-01AA-4264-BB84-EB11DD7375CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FCEA20-01AA-4264-BB84-EB11DD7375CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

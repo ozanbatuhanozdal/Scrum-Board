@@ -7,15 +7,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using TestApplicaation.WebApp.Models;
 
-namespace TestApplicaation.WebApp.Controllers
+namespace TestApplication.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+            
         }
 
         public IActionResult Index()
@@ -23,15 +23,16 @@ namespace TestApplicaation.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Login()
+        {
+            return View();
+        }
+        
+        public IActionResult Register()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }
