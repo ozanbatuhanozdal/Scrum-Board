@@ -16,5 +16,7 @@ namespace TestApplication.Entities.Models
         public string CustomerPhone { get; set;}
 
         public string CustomerAddress { get; set; }
+
+        public IList<CustomerCard> CustomerCards { get; set; }
     }
 }

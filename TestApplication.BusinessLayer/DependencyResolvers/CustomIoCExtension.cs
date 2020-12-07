@@ -19,6 +19,9 @@ namespace TestApplication.BusinessLayer.DependencyResolvers
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<ICustomerManager, CustomerManager>();
+            services.AddScoped<ICustomerRepository,CustomerRepository>();
+
             services.AddScoped<IJwtManager, JwtManager>();
         }
 

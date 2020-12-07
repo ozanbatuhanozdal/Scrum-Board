@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplication.DataAccess.Migrations
 {
-    public partial class initial : Migration
+    public partial class initalcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,6 +69,12 @@ namespace TestApplication.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerCard", x => x.CustomerCardId);
+                    table.ForeignKey(
+                        name: "FK_CustomerCard_Customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customer",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CustomerCard_User_UserId",
                         column: x => x.UserId,
@@ -137,7 +143,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "CreatedDate", "Email", "Name", "Password" },
-                values: new object[] { 1, new DateTime(2020, 12, 6, 6, 17, 45, 321, DateTimeKind.Local).AddTicks(4181), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
+                values: new object[] { 1, new DateTime(2020, 12, 7, 0, 9, 57, 736, DateTimeKind.Local).AddTicks(9414), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
 
             migrationBuilder.InsertData(
                 table: "UserType",
@@ -147,7 +153,12 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "userUserTypes",
                 columns: new[] { "UserUserTypeId", "CreatedDate", "UserId", "UserTypeId" },
-                values: new object[] { 1, new DateTime(2020, 12, 6, 6, 17, 45, 322, DateTimeKind.Local).AddTicks(3665), 1, 1 });
+                values: new object[] { 1, new DateTime(2020, 12, 7, 0, 9, 57, 737, DateTimeKind.Local).AddTicks(8507), 1, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerCard_CustomerId",
+                table: "CustomerCard",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerCard_UserId",
@@ -178,9 +189,6 @@ namespace TestApplication.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Customer");
-
-            migrationBuilder.DropTable(
                 name: "CustomerCardRow");
 
             migrationBuilder.DropTable(
@@ -191,6 +199,9 @@ namespace TestApplication.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserType");
+
+            migrationBuilder.DropTable(
+                name: "Customer");
 
             migrationBuilder.DropTable(
                 name: "User");

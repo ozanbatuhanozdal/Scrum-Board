@@ -5,7 +5,7 @@ using TestApplication.Entities.Models;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
 {
-    public interface ICustomerRepository : IRepositoryBase<CustomerCard>
+    public interface ICustomerRepository : IRepositoryBase<Customer>
     {
     }
 }

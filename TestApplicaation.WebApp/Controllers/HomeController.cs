@@ -97,7 +97,7 @@ namespace TestApplication.WebApp.Controllers
         public IActionResult Signout()
         {
             HttpContext.Session.Remove("token");
-            return RedirectToAction("Signin", "Home");
+            return RedirectToAction("Login", "Home");
         }
 
 

@@ -1,0 +1,76 @@
+﻿@using TestApplication.Common.Dto.CustomerDtos
+
+@model CustomerUpdateDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Create Customer Form</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Create Customer Form</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit Customer</h3>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    @using (Html.BeginForm("Edit", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        <div class="card-body">
+                            <div class="input-group">
+
+                                <div class="form-group col-md-4">
+                                    <label for="mealName">Customer Name</label>
+
+                                    @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Name" } })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Customer Phone</label>
+
+                                    @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control", id = "price", placeholder = "Customer Phone" } })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label> Customer Address</label>
+                                    @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Address" } })
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer form-group">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                    }
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+

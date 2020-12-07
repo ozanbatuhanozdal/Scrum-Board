@@ -104,6 +104,8 @@ namespace TestApplication.DataAccess.Migrations
 
                     b.HasKey("CustomerCardId");
 
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("CustomerCard");
@@ -138,7 +140,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2020, 12, 6, 6, 17, 45, 321, DateTimeKind.Local).AddTicks(4181),
+                            CreatedDate = new DateTime(2020, 12, 7, 0, 9, 57, 736, DateTimeKind.Local).AddTicks(9414),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -199,7 +201,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserUserTypeId = 1,
-                            CreatedDate = new DateTime(2020, 12, 6, 6, 17, 45, 322, DateTimeKind.Local).AddTicks(3665),
+                            CreatedDate = new DateTime(2020, 12, 7, 0, 9, 57, 737, DateTimeKind.Local).AddTicks(8507),
                             UserId = 1,
                             UserTypeId = 1
                         });
@@ -220,6 +222,12 @@ namespace TestApplication.DataAccess.Migrations
 
             modelBuilder.Entity("TestApplication.Entities.Models.CustomerCard", b =>
                 {
+                    b.HasOne("TestApplication.Entities.Models.Customer", null)
+                        .WithMany("CustomerCards")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TestApplication.Entities.Models.User", null)
                         .WithMany("customerCards")
                         .HasForeignKey("UserId")
@@ -244,6 +252,11 @@ namespace TestApplication.DataAccess.Migrations
                     b.Navigation("user");
 
                     b.Navigation("userType");
+                });
+
+            modelBuilder.Entity("TestApplication.Entities.Models.Customer", b =>
+                {
+                    b.Navigation("CustomerCards");
                 });
 
             modelBuilder.Entity("TestApplication.Entities.Models.CustomerCard", b =>
