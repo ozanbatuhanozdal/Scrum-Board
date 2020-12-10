@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestApplication.Common.Dto.CustomerDtos;
+using TestApplication.Common.Dto.UserDtos;
+using TestApplication.Common.Dto.UserTypeDtos;
 using TestApplication.Entities.Models;
 
 namespace TestApplication.WebApp.Mapping.AutoMappers
@@ -23,6 +25,12 @@ namespace TestApplication.WebApp.Mapping.AutoMappers
 
             CreateMap<Customer, CustomerDeleteDto>();
             CreateMap<CustomerDeleteDto, Customer>();
+
+            CreateMap<User, UserListDto>();
+            CreateMap<UserListDto, User>();
+
+            CreateMap<UserType, UserTypeDto>();
+            CreateMap<UserTypeDto, UserType>();
 
 
         }

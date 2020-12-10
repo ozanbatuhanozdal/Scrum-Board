@@ -13,6 +13,7 @@ namespace TestApplication.BusinessLayer.DependencyResolvers
     {
         public static void AddDependencies(this IServiceCollection services)
         {
+
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped(typeof(IManagerBase<>), typeof(ManagerBase<>));
 
@@ -21,6 +22,12 @@ namespace TestApplication.BusinessLayer.DependencyResolvers
 
             services.AddScoped<ICustomerManager, CustomerManager>();
             services.AddScoped<ICustomerRepository,CustomerRepository>();
+
+            services.AddScoped<ICustomerCardManager, CustomerCardManager>();
+            services.AddScoped<ICustomerCardRepository, CustomerCardRepository>();
+
+            services.AddScoped<IUserTypeManager, UserTypeManager>();
+            services.AddScoped<IUserTypeRepository, UserTypeRepository>();
 
             services.AddScoped<IJwtManager, JwtManager>();
         }

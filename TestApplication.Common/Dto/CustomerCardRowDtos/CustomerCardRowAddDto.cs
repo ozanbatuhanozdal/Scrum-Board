@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
-using TestApplication.Entities.Models.Base;
+using System.Threading.Tasks;
 
-namespace TestApplication.Entities
+namespace TestApplication.Common.Dto.CustomerCardRowDtos
 {
-    public class CustomerCardRow : EntityBase
+    public class CustomerCardRowAddDto
     {
-        [Key]
         public int CustomerCardRowId { get; set; }
         public int CustomerCardId { get; set; }
 
-        public int DevId { get; set; }
-        
+        public string DevName { get; set; }
+
         public int Priorty { get; set; }
 
         public DateTime FinishedDate { get; set; }
 
         public string Explanation { get; set; }
-        
     }
 }

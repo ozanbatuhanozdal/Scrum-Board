@@ -1,7 +1,7 @@
-﻿@using TestApplication.Common.Dto.CustomerDtos
+﻿@using TestApplication.Common.Dto.UserTypeDtos
 
 
-@model List<CustomerListDto>  
+@model List<UserTypeDto>
 @{
     ViewData["Title"] = "Index";
 
@@ -43,43 +43,40 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <a href="@Url.Action("Create", "Customer")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New Customer</a>
+                        <a href="@Url.Action("Create", "UserType")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New Customer Card</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Customer Name</th>
-                                    <th>Customer Adress</th>
-                                    <th>Customer Phone </th>
+                                    <th>User Type Name</th>
+                                    <th>User Type Description</th>                                    
                                     <th>Detail/Edit/Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var customers in Model)
+                                @foreach (var userType in Model)
                                 {
-                                <tr>
-                                    <td>@customers.CustomerName</td>
-                                    <td>@customers.CustomerAddress</td>
-                                    <td>@customers.CustomerPhone</td>
-                                    <td>
-                                        <a href="@Url.Action("Detail", "Customer", new { id = customers.CustomerId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                        <a href="@Url.Action("Edit", "Customer", new { id = customers.CustomerId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
-                                        <a href="@Url.Action("Delete", "Customer", new { id = customers.CustomerId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+                                    <tr>
+                                        <td>@userType.UserTypeName</td>
+                                        <td>@userType.UserTypeDescription</td>                                        
+                                        <td>
+                                            <a href="@Url.Action("Detail", "CustomerCard", new { id = userType.UserTypeId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="@Url.Action("Edit", "CustomerCard", new { id = userType.UserTypeId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
+                                            <a href="@Url.Action("Delete", "CustomerCard", new { id = userType.UserTypeId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
 
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                                 }
 
-                              
+
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Customer Name</th>
-                                    <th>Customer Adress</th>
-                                    <th>Customer Phone Calory</th>
+                                    <th>User Type Name</th>
+                                    <th>User Type Description</th>
                                     <th>Detail/Edit/Delete</th>
                                 </tr>
                             </tfoot>

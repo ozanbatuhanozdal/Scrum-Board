@@ -8,15 +8,16 @@ using TestApplication.BusinessLayer.Interfaces;
 using TestApplication.Common.Dto.CustomerDtos;
 using TestApplication.Common.Dto.UserDtos;
 using TestApplication.Entities.Models;
+using TestApplication.WebApp.Models.Interfaces;
 
 namespace TestApplication.WebApp.Controllers
 {
-    public class CustomerController : Controller
-    {
+    public class CustomerController : BaseController
+    {      
 
         private readonly ICustomerManager _customerManager;
         private readonly IMapper _mapper;
-        public CustomerController(ICustomerManager customerManager,IMapper mapper)
+        public CustomerController(ICustomerManager customerManager,IMapper mapper, ILoggedUserProvider loggedUserProvider) : base(loggedUserProvider)
         {
             _customerManager = customerManager;
             _mapper = mapper;
@@ -63,20 +64,42 @@ namespace TestApplication.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserUpdateDto userUpdateDto)
+        public async Task<IActionResult> Edit(CustomerUpdateDto customerUpdateDto)
         {
-            return View();
+            if(ModelState.IsValid)
+            {
+            Customer updatedCustomer = await _customerManager.FindById(customerUpdateDto.CustomerId);
+            if(updatedCustomer == null)
+            {
+                    return View(customerUpdateDto);
+            }
+            updatedCustomer = _mapper.Map<Customer>(customerUpdateDto);
+            await _customerManager.UpdateAsync(updatedCustomer);
+            return RedirectToAction("Index");
+            }
+            else
+            {
+
+
+            return View(customerUpdateDto);
+            }
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            Customer deletedCustomer = await  _customerManager.FindById(id);
+
+            CustomerListDto customer = _mapper.Map<CustomerListDto>(deletedCustomer);
+
+            return View(customer);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(UserChangePasswordDto userChangePasswordDto)
+        [HttpPost]
+        public async Task<IActionResult> Delete(CustomerListDto customerListDto)
         {
-            return View();
+            Customer deletedCustomer = _mapper.Map<Customer>(customerListDto);
+            await _customerManager.RemoveAsync(deletedCustomer);
+            return RedirectToAction("Index");
         }
 
         public  IActionResult Detail()

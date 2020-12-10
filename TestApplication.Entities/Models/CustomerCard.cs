@@ -11,7 +11,7 @@ namespace TestApplication.Entities.Models
         [Key, Required]
         public int CustomerCardId { get; set; }
 
-        public string CustomerCardName { get; set; }
+        public string CustomerCardName { get; set; }               
 
         public int Priorty { get; set; }
 

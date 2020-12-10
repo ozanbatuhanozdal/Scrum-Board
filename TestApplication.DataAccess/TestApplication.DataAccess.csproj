@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TestApplication.Common\TestApplication.Common.csproj" />
     <ProjectReference Include="..\TestApplication.Entities\TestApplication.Entities.csproj" />
   </ItemGroup>
 

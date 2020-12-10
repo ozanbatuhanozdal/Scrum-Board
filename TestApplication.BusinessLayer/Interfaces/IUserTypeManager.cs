@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TestApplication.Entities.Models;
 
 namespace TestApplication.BusinessLayer.Interfaces
 {
-    public interface ICustomerCardManager : IManagerBase<CustomerCard>
+    public interface IUserTypeManager : IManagerBase<UserType>
     {
     }
 }

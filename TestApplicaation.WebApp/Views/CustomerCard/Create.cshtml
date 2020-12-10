@@ -1,12 +1,10 @@
-﻿@using TestApplication.Common.Dto.CustomerDtos
+﻿@using TestApplication.Common.Dto.CustomerCardDtos
 
-@model CustomerUpdateDto
-
+@model CustomerCardAddDto
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <section class="content-header">
     <div class="container-fluid">
@@ -32,44 +30,43 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Customer</h3>
+                        <h3 class="card-title">Create Customer</h3>
 
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    @using (Html.BeginForm("Edit", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
 
                         <div class="card-body">
                             <div class="input-group">
-                                @Html.HiddenFor(model => model.CustomerId)
 
                                 <div class="form-group col-md-4">
-                                    <label for="mealName">Customer Name</label>
-
-                                    @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Name" } })
+                                    <label>Customer Name</label>
+                                    @Html.DropDownList("CustomerId", null, htmlAttributes: new { @class = "form-control" })
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label>Customer Phone</label>
 
-                                    @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control", id = "price", placeholder = "Customer Phone" } })
+                                    @Html.EditorFor(model => model.Explanation, new { htmlAttributes = new { @class = "form-control", id = "price", placeholder = "Customer Phone" } })
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label> Customer Address</label>
-                                    @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Address" } })
+                                    @Html.EditorFor(model => model.Priorty, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Address" } })
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer form-group">
-                            <button type="submit" class="btn btn-primary">Edit</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     }
                 </div>
                 <!-- /.card -->
 
             </div>
-        </div>
+        </div>     
+     
         <!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
