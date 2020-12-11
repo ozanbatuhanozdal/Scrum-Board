@@ -22,12 +22,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Customer List</h1>
+                <h1>User Type List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
-                    <li class="breadcrumb-item active">Customer</li>
+                    <li class="breadcrumb-item active">User Type</li>
                     <li class="breadcrumb-item active">Index</li>
                 </ol>
             </div>
@@ -40,10 +40,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-
                 <div class="card">
                     <div class="card-header">
-                        <a href="@Url.Action("Create", "UserType")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New Customer Card</a>
+                        <a href="@Url.Action("Create", "UserType")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New User Type</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -62,9 +61,9 @@
                                         <td>@userType.UserTypeName</td>
                                         <td>@userType.UserTypeDescription</td>                                        
                                         <td>
-                                            <a href="@Url.Action("Detail", "CustomerCard", new { id = userType.UserTypeId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                            <a href="@Url.Action("Edit", "CustomerCard", new { id = userType.UserTypeId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
-                                            <a href="@Url.Action("Delete", "CustomerCard", new { id = userType.UserTypeId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+                                            <a href="@Url.Action("Detail", "UserType", new { id = userType.UserTypeId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="@Url.Action("Edit", "UserType", new { id = userType.UserTypeId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
+                                            <a href="@Url.Action("Delete", "UserType", new { id = userType.UserTypeId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
 
 
                                         </td>

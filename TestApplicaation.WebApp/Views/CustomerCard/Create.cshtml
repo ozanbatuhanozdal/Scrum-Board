@@ -5,70 +5,117 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Create Customer Form</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Create Customer Form</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <!-- left column -->
-            <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Create Customer</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Explanation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Priorty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DevId)
+                </th>
+              
+            </tr>
+        </thead>
 
-                    </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.EditorFor(modelItem => modelItem.Explanation, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => modelItem.DevId, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            
+            </tr>
+        </tbody>
 
-                        <div class="card-body">
-                            <div class="input-group">
+        <tfoot>
+            <tr>
+                <td>
+                    <input class="btnAdd btn btn-default" type="button" name="name" value="Add" />
+                </td>
+                <td>
+                    <input id="btnSubmit" type="button" value="Submit" class="btn btn-default" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+}
 
-                                <div class="form-group col-md-4">
-                                    <label>Customer Name</label>
-                                    @Html.DropDownList("CustomerId", null, htmlAttributes: new { @class = "form-control" })
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label>Customer Phone</label>
+@section scripts{
+    <script>
 
-                                    @Html.EditorFor(model => model.Explanation, new { htmlAttributes = new { @class = "form-control", id = "price", placeholder = "Customer Phone" } })
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label> Customer Address</label>
-                                    @Html.EditorFor(model => model.Priorty, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Address" } })
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer form-group">
-                            <button type="submit" class="btn btn-primary">Create</button>
-                        </div>
-                    }
-                </div>
-                <!-- /.card -->
+    $(".btnAdd").click(function () {
+        var td1 = '<td>@Html.EditorFor(modelItem => modelItem.Explanation, new { htmlAttributes = new { @class = "form-control" } })</td>';
+        var td2 = '<td>@Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })</td>';
+        var td3 = '<td>@Html.EditorFor(modelItem => modelItem.DevId, new { htmlAttributes = new { @class = "form-control" } })</td>';
+        
+        $("tbody").append('<tr>' + td1 + td2 + td3 + '</tr>');
+    });
 
-            </div>
-        </div>     
-     
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
-</section>
+    function getAllData() {
+        var data = [];
+        $('tbody tr').each(function () {
+            var From = $(this).find('#From').val();
+            var Date = $(this).find('#Date').val();
+            var Department = $(this).find('#Department').val();
+            var SerialNo = $(this).find('#SerialNo').val();
+            var Description = $(this).find('#Description').val();
+            var Quantity = $(this).find('#Quantity').val();
+            var Reason = $(this).find('#Reason').val();
+            var ExpectedReturnDate = $(this).find('#ExpectedReturnDate').val();
+            var Recipient = $(this).find('#Recipient').val();
+            var Type = $(this).find('#Type').val();
+            var ApprovedBy = $(this).find('#ApprovedBy').val();
+            var HeadOfDepartment = $(this).find('#HeadOfDepartment').val();
+            var alldata = {
+                'From': From,
+                'Date': Date,
+                'Department': Department,
+                'SerialNo': SerialNo,
+                'Description': Description,
+                'Quantity': Quantity,
+                'Reason': Reason,
+                'ExpectedReturnDate': ExpectedReturnDate,
+                'Recipient': Recipient,
+                'Type': Type,
+                'ApprovedBy': ApprovedBy,
+                'HeadOfDepartment': HeadOfDepartment,
+            }
+            data.push(alldata);
+        });
+        console.log(data);
+        return data;
+    }
 
-
+    $('#btnSubmit').click(function () {
+        var data = JSON.stringify(getAllData());
+        $.ajax({
+            url: '/CustomerCard/SaveData',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ 'getepassdata': data }),
+            success: function () {
+                alert("Data Added Successfully");
+            },
+            error: function () {
+                alert("Error while inserting data");
+            }
+        });
+    });
+    </script>
+}
