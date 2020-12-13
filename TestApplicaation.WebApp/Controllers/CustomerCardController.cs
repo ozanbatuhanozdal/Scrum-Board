@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestApplication.BusinessLayer.Interfaces;
 using TestApplication.Common.Dto.CustomerCardDtos;
+using TestApplication.Common.Dto.CustomerCardRowDtos;
 using TestApplication.Common.Dto.CustomerDtos;
+using TestApplication.Entities;
 using TestApplication.Entities.Models;
 using TestApplication.WebApp.Models.Interfaces;
 
@@ -18,13 +22,15 @@ namespace TestApplication.WebApp.Controllers
 
         private readonly ICustomerCardManager _customerCardManager;
         private readonly ICustomerManager _customerManager;
+        private readonly IUserManager _userManager;
         private readonly IMapper _mapper;
 
 
-        public CustomerCardController(ILoggedUserProvider loggedUserProvider,ICustomerCardManager customerCardManager,IMapper mapper,ICustomerManager customerManager) :base(loggedUserProvider)
+        public CustomerCardController(ILoggedUserProvider loggedUserProvider,ICustomerCardManager customerCardManager,IUserManager userManager,IMapper mapper,ICustomerManager customerManager) :base(loggedUserProvider)
         {
             _customerCardManager = customerCardManager;
             _customerManager = customerManager;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
@@ -56,26 +62,34 @@ namespace TestApplication.WebApp.Controllers
         public async  Task<IActionResult> Create()
         {
             ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(), "CustomerId", "CustomerName");
+            ViewBag.DeveloperName = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
+            ViewBag.ProductId = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CustomerAddDto model)
+        public async Task<IActionResult> Create([FromBody] string CustomerCard)
         {
+            List<CustomerCardRowAddDto> customerCardRowAddDtos = JsonConvert.DeserializeObject<List<CustomerCardRowAddDto>>(CustomerCard);
+            CustomerCardAddDto customerCardAddDto = new CustomerCardAddDto();
+            customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDtos;
+            customerCardAddDto.CustomerCardName = customerCardRowAddDtos[0].CustomerCardName;
+            customerCardAddDto.CustomerName = customerCardRowAddDtos[0].CustomerName;      
+            
             if (ModelState.IsValid)
             {
 
-                Customer customer = _mapper.Map<Customer>(model);
+                //Customer customer = _mapper.Map<Customer>(model);
 
-                await _customerManager.AddAsync(customer);
+                //await _customerManager.AddAsync(customer);
                 return RedirectToAction("Index");
             }
             else
             {
 
 
-                return View(model);
-
+                return View();
+                 
             }
         }
 
@@ -130,5 +144,55 @@ namespace TestApplication.WebApp.Controllers
         {
             return View();
         }
+
+        public JsonResult SaveData([FromBody] string test)//WebMethod to Save the data  
+        {
+            var serialize  = JsonConvert.DeserializeObject(test);
+            serialize.ToString();
+            List<CustomerCardRow> cardrow = JsonConvert.DeserializeObject<List<CustomerCardRow>>(test);           
+           
+            try
+            {
+                
+
+               
+            }
+            catch (Exception)
+            {
+                return Json("fail");
+            }
+
+            return Json("success");
+        }
+      
     }
 }
+
+/*
+ * 
+ * public ActionResult CreateMultiple()
+{
+    return View();
+}
+
+public JsonResult SaveData(string getepassdata)//WebMethod to Save the data  
+{
+    try
+    {
+        var serializeData = JsonConvert.DeserializeObject<List<GatePass>>(getepassdata);
+
+        foreach (var data in serializeData)
+        {
+            db.GatePasses.Add(data);
+        }
+
+        db.SaveChanges();
+    }
+    catch (Exception)
+    {
+        return Json("fail");
+    }
+
+    return Json("success");
+}
+*/

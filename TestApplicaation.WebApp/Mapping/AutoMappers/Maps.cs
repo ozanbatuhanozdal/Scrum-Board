@@ -32,6 +32,14 @@ namespace TestApplication.WebApp.Mapping.AutoMappers
             CreateMap<UserType, UserTypeDto>();
             CreateMap<UserTypeDto, UserType>();
 
+            CreateMap<UserUserType, UserTypeDto>();
+            CreateMap<UserTypeDto, UserUserType>();
+
+            CreateMap<UserAddDto, User>();
+            CreateMap<User, UserAddDto>();
+            
+
+
             CreateMap<UserType, UserTypeAddDto>();
             CreateMap<UserTypeAddDto, UserType>();
 

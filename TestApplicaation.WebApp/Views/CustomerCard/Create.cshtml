@@ -5,9 +5,27 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "CustomerCard", FormMethod.Post, new { enctype = "multipart/form-data" , id="createcustomercard" }))
 {
     @Html.AntiForgeryToken()
+    <hr />
+    <div class="input-group">
+
+        <div class="form-group col-md-4">
+            <label>Customer name</label>
+            @Html.DropDownList("CustomerId", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label>Customer Card name</label>
+            @Html.EditorFor(model => model.CustomerCardName, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Card Name" } })
+
+        </div>
+        <div class="form-group col-md-4">
+            <label>Product Manager name</label>
+            @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+
+    </div>
 
     <table class="table">
         <thead>
@@ -19,9 +37,8 @@
                     @Html.DisplayNameFor(model => model.Priorty)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DevId)
-                </th>
-              
+                    @Html.DisplayNameFor(model => model.DeveloperName)
+                </th>        
             </tr>
         </thead>
 
@@ -34,9 +51,9 @@
                     @Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => modelItem.DevId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownList("DeveloperName", null, htmlAttributes: new { @class = "form-control" })
                 </td>
-            
+
             </tr>
         </tbody>
 
@@ -61,34 +78,37 @@
     $(".btnAdd").click(function () {
         var td1 = '<td>@Html.EditorFor(modelItem => modelItem.Explanation, new { htmlAttributes = new { @class = "form-control" } })</td>';
         var td2 = '<td>@Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })</td>';
-        var td3 = '<td>@Html.EditorFor(modelItem => modelItem.DevId, new { htmlAttributes = new { @class = "form-control" } })</td>';
-        
-        $("tbody").append('<tr>' + td1 + td2 + td3 + '</tr>');
+        var td3 = '<td>@Html.EditorFor(modelItem => modelItem.DeveloperName, new { htmlAttributes = new { @class = "form-control" } })</td>';
+        $("tbody").append('<tr>' + td1 + td2 + td3 +  '</tr>');
     });
 
     function getAllData() {
         var data = [];
+        var e = document.getElementById("CustomerId");
+        var p = document.getElementById("ProductId");
+        var d = document.getElementById("DeveloperName");
+        var t = document.getElementById("CustomerCardName").value;
         $('tbody tr').each(function () {
-            var From = $(this).find('#From').val();
-            var Date = $(this).find('#Date').val();
-            var Department = $(this).find('#Department').val();
-            var SerialNo = $(this).find('#SerialNo').val();
-            var Description = $(this).find('#Description').val();
-            var Quantity = $(this).find('#Quantity').val();
-            var Reason = $(this).find('#Reason').val();
+            var Explanation = $(this).find('#Explanation').val();
+            var Priorty = $(this).find('#Priorty').val();
+            var DeveloperName = $(this).find('#DeveloperName').val();
+            var CustomerName = e.innerText;
+            var CustomerCardName = t;
+            var ProductManagerName = p.innerText;
+            var DeveloperName = d.innerText;
             var ExpectedReturnDate = $(this).find('#ExpectedReturnDate').val();
             var Recipient = $(this).find('#Recipient').val();
             var Type = $(this).find('#Type').val();
             var ApprovedBy = $(this).find('#ApprovedBy').val();
             var HeadOfDepartment = $(this).find('#HeadOfDepartment').val();
             var alldata = {
-                'From': From,
-                'Date': Date,
-                'Department': Department,
-                'SerialNo': SerialNo,
-                'Description': Description,
-                'Quantity': Quantity,
-                'Reason': Reason,
+                'Explanation': Explanation,
+                'Priorty': Priorty,
+                'DeveloperName': DeveloperName,
+                'CustomerName': CustomerName,
+                'CustomerCardName': CustomerCardName,
+                'ProductManagerName': ProductManagerName,
+                'DeveloperName': DeveloperName,
                 'ExpectedReturnDate': ExpectedReturnDate,
                 'Recipient': Recipient,
                 'Type': Type,
@@ -103,13 +123,15 @@
 
     $('#btnSubmit').click(function () {
         var data = JSON.stringify(getAllData());
+        console.log(data)
         $.ajax({
-            url: '/CustomerCard/SaveData',
+            url: '/CustomerCard/Create',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ 'getepassdata': data }),
+            data: JSON.stringify(data),
             success: function () {
+
                 alert("Data Added Successfully");
             },
             error: function () {

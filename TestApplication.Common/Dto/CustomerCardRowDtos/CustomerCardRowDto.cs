@@ -11,7 +11,7 @@ namespace TestApplication.Common.Dto.CustomerCardRowDtos
         public int CustomerCardRowId { get; set; }
         public int CustomerCardId { get; set; }
 
-        public int DevId { get; set; }
+        public string DeveloperName { get; set; }
 
         public int Priorty { get; set; }
 
