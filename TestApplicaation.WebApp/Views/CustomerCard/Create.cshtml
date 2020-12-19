@@ -18,27 +18,27 @@
         <div class="form-group col-md-4">
             <label>Customer Card name</label>
             @Html.EditorFor(model => model.CustomerCardName, new { htmlAttributes = new { @class = "form-control", placeholder = "Customer Card Name" } })
-
         </div>
         <div class="form-group col-md-4">
             <label>Product Manager name</label>
             @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "form-control" })
         </div>
-
     </div>
-
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Explanation)
+                  Job  @Html.DisplayNameFor(model => model.Explanation)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Priorty)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.DeveloperName)
-                </th>        
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FinishedDate)
+                </th>
             </tr>
         </thead>
 
@@ -51,9 +51,11 @@
                     @Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
                 <td>
-                    @Html.DropDownList("DeveloperName", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.EditorFor(modelItem => modelItem.DeveloperName, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
-
+                <td>
+                    @Html.EditorFor(modelItem => modelItem.FinishedDate, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
             </tr>
         </tbody>
 
@@ -79,7 +81,9 @@
         var td1 = '<td>@Html.EditorFor(modelItem => modelItem.Explanation, new { htmlAttributes = new { @class = "form-control" } })</td>';
         var td2 = '<td>@Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })</td>';
         var td3 = '<td>@Html.EditorFor(modelItem => modelItem.DeveloperName, new { htmlAttributes = new { @class = "form-control" } })</td>';
-        $("tbody").append('<tr>' + td1 + td2 + td3 +  '</tr>');
+        var td4 = '<td>@Html.EditorFor(modelItem => modelItem.FinishedDate, new { htmlAttributes = new { @class = "form-control" } })</td>';
+        $("tbody").append('<tr>' + td1 + td2 + td3 + td4 + '</tr>');
+
     });
 
     function getAllData() {
@@ -92,10 +96,10 @@
             var Explanation = $(this).find('#Explanation').val();
             var Priorty = $(this).find('#Priorty').val();
             var DeveloperName = $(this).find('#DeveloperName').val();
+            var FinishedDate = $(this).find('#FinishedDate').val();
             var CustomerName = e.innerText;
             var CustomerCardName = t;
             var ProductManagerName = p.innerText;
-            var DeveloperName = d.innerText;
             var ExpectedReturnDate = $(this).find('#ExpectedReturnDate').val();
             var Recipient = $(this).find('#Recipient').val();
             var Type = $(this).find('#Type').val();
@@ -108,7 +112,7 @@
                 'CustomerName': CustomerName,
                 'CustomerCardName': CustomerCardName,
                 'ProductManagerName': ProductManagerName,
-                'DeveloperName': DeveloperName,
+                'FinishedDate': FinishedDate,
                 'ExpectedReturnDate': ExpectedReturnDate,
                 'Recipient': Recipient,
                 'Type': Type,

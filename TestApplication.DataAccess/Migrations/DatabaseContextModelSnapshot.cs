@@ -32,23 +32,21 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int>("CustomerCardId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DevId")
-                        .HasColumnType("int");
+                    b.Property<string>("DeveloperName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Explanation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Priorty")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FinishedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("Priorty")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerCardRowId");
 
                     b.HasIndex("CustomerCardId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CustomerCardRow");
                 });
@@ -93,20 +91,12 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Explanation")
+                    b.Property<string>("ProductManagerName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Priorty")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("CustomerCardId");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CustomerCard");
                 });
@@ -140,7 +130,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2020, 12, 7, 0, 9, 57, 736, DateTimeKind.Local).AddTicks(9414),
+                            CreatedDate = new DateTime(2020, 12, 14, 22, 44, 9, 709, DateTimeKind.Local).AddTicks(8057),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -201,7 +191,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserUserTypeId = 1,
-                            CreatedDate = new DateTime(2020, 12, 7, 0, 9, 57, 737, DateTimeKind.Local).AddTicks(8507),
+                            CreatedDate = new DateTime(2020, 12, 14, 22, 44, 9, 710, DateTimeKind.Local).AddTicks(7532),
                             UserId = 1,
                             UserTypeId = 1
                         });
@@ -210,14 +200,10 @@ namespace TestApplication.DataAccess.Migrations
             modelBuilder.Entity("TestApplication.Entities.CustomerCardRow", b =>
                 {
                     b.HasOne("TestApplication.Entities.Models.CustomerCard", null)
-                        .WithMany("CustomerCardRows")
+                        .WithMany("CustomerCardRow")
                         .HasForeignKey("CustomerCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TestApplication.Entities.Models.User", null)
-                        .WithMany("customerCardRows")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TestApplication.Entities.Models.CustomerCard", b =>
@@ -225,12 +211,6 @@ namespace TestApplication.DataAccess.Migrations
                     b.HasOne("TestApplication.Entities.Models.Customer", null)
                         .WithMany("CustomerCards")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TestApplication.Entities.Models.User", null)
-                        .WithMany("customerCards")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -261,15 +241,11 @@ namespace TestApplication.DataAccess.Migrations
 
             modelBuilder.Entity("TestApplication.Entities.Models.CustomerCard", b =>
                 {
-                    b.Navigation("CustomerCardRows");
+                    b.Navigation("CustomerCardRow");
                 });
 
             modelBuilder.Entity("TestApplication.Entities.Models.User", b =>
                 {
-                    b.Navigation("customerCardRows");
-
-                    b.Navigation("customerCards");
-
                     b.Navigation("userUserTypes");
                 });
 

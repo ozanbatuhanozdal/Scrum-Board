@@ -3,9 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestApplication.Common.Dto.CustomerCardDtos;
+using TestApplication.Common.Dto.CustomerCardRowDtos;
 using TestApplication.Common.Dto.CustomerDtos;
 using TestApplication.Common.Dto.UserDtos;
 using TestApplication.Common.Dto.UserTypeDtos;
+using TestApplication.Entities;
 using TestApplication.Entities.Models;
 
 namespace TestApplication.WebApp.Mapping.AutoMappers
@@ -25,6 +28,12 @@ namespace TestApplication.WebApp.Mapping.AutoMappers
 
             CreateMap<Customer, CustomerDeleteDto>();
             CreateMap<CustomerDeleteDto, Customer>();
+
+            CreateMap<CustomerCard, CustomerCardAddDto>();
+            CreateMap<CustomerCardAddDto, CustomerCard>();
+
+            CreateMap<CustomerCardRow, CustomerCardRowAddDto>();
+            CreateMap<CustomerCardRowAddDto, CustomerCardRow>();
 
             CreateMap<User, UserListDto>();
             CreateMap<UserListDto, User>();

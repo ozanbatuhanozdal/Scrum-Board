@@ -13,17 +13,11 @@ namespace TestApplication.Entities.Models
 
         public string CustomerCardName { get; set; }               
 
-        public int Priorty { get; set; }
+        public List<CustomerCardRow> CustomerCardRow { get; set; }
 
-        public List<CustomerCardRow> CustomerCardRows { get; set; }
-
-        public int UserId { get; set; }
+        public string ProductManagerName { get; set; }
 
         public int CustomerId { get; set; }
-
-        public string Explanation { get; set; }
-        
-
         
     }
 }

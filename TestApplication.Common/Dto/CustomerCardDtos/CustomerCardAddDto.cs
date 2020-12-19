@@ -9,6 +9,7 @@ namespace TestApplication.Common.Dto.CustomerCardDtos
 {
     public class CustomerCardAddDto
     {
+        public int UserId { get; set; }
         public int CustomerCardRowId { get; set; }
         public int CustomerCardId { get; set; }
         public string CustomerName { get; set; }
@@ -17,7 +18,7 @@ namespace TestApplication.Common.Dto.CustomerCardDtos
         
         public string DeveloperName { get; set; }
 
-        public int Priorty { get; set; }
+        public string Priorty { get; set; }
 
         public DateTime FinishedDate { get; set; }
 

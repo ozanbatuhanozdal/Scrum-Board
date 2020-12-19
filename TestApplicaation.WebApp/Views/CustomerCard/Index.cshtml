@@ -1,33 +1,27 @@
-﻿@using TestApplication.Common.Dto.CustomerCardDtos
+﻿@using TestApplication.Entities.Models
 
 
-@model List<CustomerCardListDto>
+@model List<Customer>
 @{
     ViewData["Title"] = "Index";
 
 
 }
 
-<link rel="stylesheet" href="/lib/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="./lib/datatables-responsive/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet" href="./lib/datatables-buttons/css/buttons.bootstrap4.min.css">
-<style>
+<link href="~/css/Datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/css/Datatables/responsive.bootstrap4.min.css" rel="stylesheet" />
 
-    .hidetext {
-        -webkit-text-security: disc; /* Default */
-    }
-</style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Customer List</h1>
+                <h1>Order List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
-                    <li class="breadcrumb-item active">Customer</li>
+                    <li class="breadcrumb-item active">Meal</li>
                     <li class="breadcrumb-item active">Index</li>
                 </ol>
             </div>
@@ -43,46 +37,64 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <a href="@Url.Action("Create", "CustomerCard")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New Customer Card</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Customer Card Name</th>
-                                    <th>Customer Adress</th>
-                                    <th>Customer Phone </th>
-                                    <th>Detail/Edit/Delete</th>
+                                    <th width="50"></th>
+                                    <th>Order Id</th>
+                                    <th>Table Name</th>
+                                    <th>Order Price</th>
+                                    <th>Order Status</th>
+                                    <th>Order Date</th>
+                                    <th>Paid</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var customers in Model)
-                                {
+
+                                @{
+                                    foreach (var customers in Model)
+                                    {
+
                                     <tr>
-                                        <td>@customers.CustomerCardName</td>
-                                        <td>@customers.Explanation</td>
-                                        <td>@customers.Priorty</td>
-                                        <td>
-                                            <a href="@Url.Action("Detail", "CustomerCard", new { id = customers.CustomerId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                            <a href="@Url.Action("Edit", "CustomerCard", new { id = customers.CustomerId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
-                                            <a href="@Url.Action("Delete", "CustomerCard", new { id = customers.CustomerId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
-
-
-                                        </td>
-                                    </tr>
+                                            <td width="50"><a href="#" id="show_@customers.CustomerId"><i class="fa fa-plus"></i></a></td>
+                                            <td>@customers.CustomerName</td>
+                                            <td>@customers.CustomerPhone</td>
+                                            <td>@customers.CustomerAddress</td>
+                                            
+                                     
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <div id="extra_@customers.CustomerId" style="display: none; width:100%">
+                                                    <table id="nested1" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Meal Name</th>
+                                                                <th>Meal Note</th>
+                                                                <th>Meal Count</th>
+                                                                <th>Meal Price</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var cards in customers.CustomerCards)
+                                                            {
+                                                                <tr>
+                                                                    <td>@cards.CustomerCardId</td>
+                                                                    <td>@cards.CustomerCardName</td>
+                                                                    <td>@cards.ProductManagerName</td>                                                                    
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-
-
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Customer Name</th>
-                                    <th>Customer Adress</th>
-                                    <th>Customer Phone Calory</th>
-                                    <th>Detail/Edit/Delete</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -98,38 +110,38 @@
 <!-- /.content -->
 @section Scripts
 {
-    <script type="text/javascript" src="~/lib/DataTables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/lib/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-    <script type="text/javascript" src="~/lib/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="~/lib/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="~/lib/datatables-buttons/js/buttons.boostrap4.min.js"></script>
-    <script type="text/javascript" src="~/lib/datatables-buttons/js/dataTables.button.min.js"></script>
-    <script type="text/javascript" src="~/lib/jszip/jszip.min.js"></script>
-    <script type="text/javascript" src="~/lib/pdfmake/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/lib/pdfmake/vfs_fonts.js"></script>
-
-    <script type="text/javascript" src="~/lib/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="~/lib/datatables-buttons/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/lib/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/lib/datatables-buttons/js/buttons.print.min.js"></script>
 
     <script>
-        $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
+        window.onload = (function () {
+            $("#example1").dataTable({
                 "responsive": true,
+                "autoWidth": false,
+                "aaSorting": [],
             });
+
+            $("#nested1").dataTable({
+                "responsive": true,
+                "autoWidth": true,
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+                "aaSorting": [],
+            });
+
         });
+
+
+        $("a[id^=show_]").click(function (event) {
+            $("#extra_" + $(this).attr('id').substr(5)).slideToggle("slow");
+            event.preventDefault();
+        });
+
+
     </script>
+    <script type="text/javascript" src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/responsive.bootstrap4.min.js"></script>
 
 }

@@ -35,28 +35,37 @@ namespace TestApplication.WebApp.Controllers
         }
 
 
-      
+
         public async Task<IActionResult> Index()
         {
             List<CustomerCard> customerCards = await _customerCardManager.GetAllASync();
-
+            
             List<Customer> customers = await _customerManager.GetAllASync();
 
+            /*
             customers.ForEach(x =>
             {
                 customerCards.ForEach(y =>
                 {
-                   if(x.CustomerId == y.CustomerId)
-                    {
+                    if (y.CustomerId == x.CustomerId)
                         x.CustomerCards.Add(y);
-                    }
+                });
+            });*/
+            customerCards.ForEach(x =>
+            {
+                customers.ForEach(y =>
+                {
+                    if (y.CustomerId == x.CustomerId)
+                        y.CustomerCards.Add(x);
                 });
             });
+          
 
-            List<CustomerCardListDto> empty = new List<CustomerCardListDto>();
+           // List<CustomerCardListDto> empty = _mapper.Map<List<CustomerCardListDto>>(customerCards);
+            List<CustomerListDto> customerListDtos = _mapper.Map<List<CustomerListDto>>(customers);
 
-            //List<CustomerListDto> customerListDto = _mapper.Map<List<CustomerListDto>>(customers);
-            return View(empty);
+            //List<CustomerCardListDto> customerListDto = _mapper.Map<List<CustomerListDto>>(empty);
+            return View(customers);
         }
 
         public async  Task<IActionResult> Create()
@@ -64,7 +73,10 @@ namespace TestApplication.WebApp.Controllers
             ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(), "CustomerId", "CustomerName");
             ViewBag.DeveloperName = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
             ViewBag.ProductId = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
-            return View();
+            CustomerCardAddDto cardAddDto = new();
+            cardAddDto.FinishedDate = DateTime.Now;
+           
+            return View(cardAddDto);
         }
 
         [HttpPost]
@@ -74,14 +86,17 @@ namespace TestApplication.WebApp.Controllers
             CustomerCardAddDto customerCardAddDto = new CustomerCardAddDto();
             customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDtos;
             customerCardAddDto.CustomerCardName = customerCardRowAddDtos[0].CustomerCardName;
-            customerCardAddDto.CustomerName = customerCardRowAddDtos[0].CustomerName;      
-            
+            customerCardAddDto.CustomerName = customerCardRowAddDtos[0].CustomerName;
+            Customer customer = _customerManager.Find(x => x.CustomerName == customerCardAddDto.CustomerName);
+            customerCardAddDto.FinishedDate = DateTime.Now.AddDays(7);
             if (ModelState.IsValid)
             {
-
-                //Customer customer = _mapper.Map<Customer>(model);
-
-                //await _customerManager.AddAsync(customer);
+                List<CustomerCardRow> customerCardRow = _mapper.Map<List<CustomerCardRow>>(customerCardRowAddDtos);
+                CustomerCard customerCardAdd = _mapper.Map<CustomerCard>(customerCardAddDto);
+                customerCardRow.ForEach(x => x.CustomerCardId = customerCardAdd.CustomerCardId);
+                customerCardAdd.CustomerCardRow = customerCardRow;
+                customerCardAdd.CustomerId = customer.CustomerId;
+                await _customerCardManager.AddAsync(customerCardAdd);
                 return RedirectToAction("Index");
             }
             else

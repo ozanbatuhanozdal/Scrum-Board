@@ -17,10 +17,7 @@ namespace TestApplication.Entities.Models
         public string Name { get; set; }
         [Required]
         public string Password { get; set; }
-
-        public virtual IList<CustomerCard> customerCards { get; set; }
-
-        public virtual  IList<CustomerCardRow> customerCardRows { get; set; }
+        
 
         public virtual IList<UserUserType> userUserTypes { get; set; }
     }

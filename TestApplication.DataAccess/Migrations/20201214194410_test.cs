@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplication.DataAccess.Migrations
 {
-    public partial class initalcreate : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,10 +60,8 @@ namespace TestApplication.DataAccess.Migrations
                     CustomerCardId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerCardName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Priorty = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ProductManagerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Explanation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -74,12 +72,6 @@ namespace TestApplication.DataAccess.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customer",
                         principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerCard_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -117,10 +109,10 @@ namespace TestApplication.DataAccess.Migrations
                     CustomerCardRowId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerCardId = table.Column<int>(type: "int", nullable: false),
-                    DevId = table.Column<int>(type: "int", nullable: false),
-                    Priorty = table.Column<int>(type: "int", nullable: false),
+                    DeveloperName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Priorty = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FinishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -132,18 +124,12 @@ namespace TestApplication.DataAccess.Migrations
                         principalTable: "CustomerCard",
                         principalColumn: "CustomerCardId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerCardRow_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "CreatedDate", "Email", "Name", "Password" },
-                values: new object[] { 1, new DateTime(2020, 12, 7, 0, 9, 57, 736, DateTimeKind.Local).AddTicks(9414), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
+                values: new object[] { 1, new DateTime(2020, 12, 14, 22, 44, 9, 709, DateTimeKind.Local).AddTicks(8057), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
 
             migrationBuilder.InsertData(
                 table: "UserType",
@@ -153,7 +139,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "userUserTypes",
                 columns: new[] { "UserUserTypeId", "CreatedDate", "UserId", "UserTypeId" },
-                values: new object[] { 1, new DateTime(2020, 12, 7, 0, 9, 57, 737, DateTimeKind.Local).AddTicks(8507), 1, 1 });
+                values: new object[] { 1, new DateTime(2020, 12, 14, 22, 44, 9, 710, DateTimeKind.Local).AddTicks(7532), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerCard_CustomerId",
@@ -161,19 +147,9 @@ namespace TestApplication.DataAccess.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerCard_UserId",
-                table: "CustomerCard",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerCardRow_CustomerCardId",
                 table: "CustomerCardRow",
                 column: "CustomerCardId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CustomerCardRow_UserId",
-                table: "CustomerCardRow",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_userUserTypes_UserId",
@@ -198,13 +174,13 @@ namespace TestApplication.DataAccess.Migrations
                 name: "CustomerCard");
 
             migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
                 name: "UserType");
 
             migrationBuilder.DropTable(
                 name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }

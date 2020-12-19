@@ -12,9 +12,9 @@ namespace TestApplication.Entities
         public int CustomerCardRowId { get; set; }
         public int CustomerCardId { get; set; }
 
-        public int DevId { get; set; }
+        public string DeveloperName { get; set; }
         
-        public int Priorty { get; set; }
+        public string Priorty { get; set; }
 
         public DateTime FinishedDate { get; set; }
 

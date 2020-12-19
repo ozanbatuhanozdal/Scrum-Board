@@ -17,6 +17,11 @@ namespace TestApplication.Entities.Models
 
         public string CustomerAddress { get; set; }
 
-        public IList<CustomerCard> CustomerCards { get; set; }
+        public virtual  IList<CustomerCard> CustomerCards { get; set; }
+
+        public Customer()
+        {
+            CustomerCards = new List<CustomerCard>();
+        }
     }
 }
