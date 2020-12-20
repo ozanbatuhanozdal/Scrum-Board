@@ -35,6 +35,7 @@ namespace TestApplication.WebApp.Mapping.AutoMappers
             CreateMap<CustomerCardRow, CustomerCardRowAddDto>();
             CreateMap<CustomerCardRowAddDto, CustomerCardRow>();
 
+
             CreateMap<User, UserListDto>();
             CreateMap<UserListDto, User>();
 

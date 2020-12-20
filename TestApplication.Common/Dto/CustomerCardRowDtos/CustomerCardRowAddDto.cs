@@ -12,9 +12,12 @@ namespace TestApplication.Common.Dto.CustomerCardRowDtos
         public int CustomerCardId { get; set; }
 
         public string CustomerName { get; set; }
+
         public string CustomerCardName { get; set; }
 
         public string DeveloperName { get; set; }
+
+        public string ProductManagerName { get; set; }
 
         public string Priorty { get; set; }
 

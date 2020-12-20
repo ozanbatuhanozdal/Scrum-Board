@@ -18,6 +18,8 @@ namespace TestApplication.Common.Dto.CustomerCardDtos
         
         public string DeveloperName { get; set; }
 
+        public string ProductManagerName { get; set; }
+
         public string Priorty { get; set; }
 
         public DateTime FinishedDate { get; set; }

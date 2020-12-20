@@ -2,10 +2,10 @@
 
 @model CustomerCardAddDto
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("Create", "CustomerCard", FormMethod.Post, new { enctype = "multipart/form-data" , id="createcustomercard" }))
+@using (Html.BeginForm("Edit", "CustomerCard", FormMethod.Post, new { enctype = "multipart/form-data", id = "createcustomercard" }))
 {
     @Html.AntiForgeryToken()
     <hr />
@@ -27,8 +27,12 @@
     <table class="table">
         <thead>
             <tr>
+                 @Html.HiddenFor(model => model.CustomerCardId);
                 <th>
-                  Job  @Html.DisplayNameFor(model => model.Explanation)
+                    Id
+                </th>
+                <th>
+                    Job  @Html.DisplayNameFor(model => model.Explanation)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Priorty)
@@ -43,20 +47,27 @@
         </thead>
 
         <tbody>
+                @foreach(var user in Model.CustomerCardRowAddDto)
+                {
             <tr>
                 <td>
-                    @Html.EditorFor(modelItem => modelItem.Explanation, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.EditorFor(modelItem => user.CustomerCardRowId, new { htmlAttributes = new { @class = "form-control" , @disabled = "disabled" } })
+                    </td>
+                <td>
+                    @Html.EditorFor(modelItem => user.Explanation, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(modelItem => user.Priorty, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => modelItem.DeveloperName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(modelItem => user.DeveloperName, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => modelItem.FinishedDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(modelItem => user.FinishedDate, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
+
             </tr>
+                }
         </tbody>
 
         <tfoot>
@@ -65,7 +76,7 @@
                     <input class="btnAdd btn btn-default" type="button" name="name" value="Add" />
                 </td>
                 <td>
-                    <input id="btnSubmit" type="button" value="Submit" class="btn btn-default" />
+                    <button id="btnSubmit" type="button" value="Submit" class="btn btn-default">Edit </button>
                 </td>
                 <td></td>
                 <td></td>
@@ -77,12 +88,13 @@
 @section scripts{
     <script>
 
-    $(".btnAdd").click(function () {
-        var td1 = '<td>@Html.EditorFor(modelItem => modelItem.Explanation, new { htmlAttributes = new { @class = "form-control" } })</td>';
-        var td2 = '<td>@Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" } })</td>';
-        var td3 = '<td>@Html.EditorFor(modelItem => modelItem.DeveloperName, new { htmlAttributes = new { @class = "form-control" } })</td>';
-        var td4 = '<td>@Html.EditorFor(modelItem => modelItem.FinishedDate, new { htmlAttributes = new { @class = "form-control" } })</td>';
-        $("tbody").append('<tr>' + td1 + td2 + td3 + td4 + '</tr>');
+        $(".btnAdd").click(function () {  
+        var td0 ='<td> </td>'
+        var td1 = '<td>@Html.EditorFor(modelItem => modelItem.Explanation, new { htmlAttributes = new { @class = "form-control", id = "user_Explanation" } })</td>';
+        var td2 = '<td>@Html.EditorFor(modelItem => modelItem.Priorty, new { htmlAttributes = new { @class = "form-control" , id = "user_Priorty" } })</td>';
+        var td3 = '<td>@Html.EditorFor(modelItem => modelItem.DeveloperName, new { htmlAttributes = new { @class = "form-control", id = "user_DeveloperName" } })</td>';
+        var td4 = '<td>@Html.EditorFor(modelItem => modelItem.FinishedDate, new { htmlAttributes = new { @class = "form-control" , id = "user_FinishedDate" } })</td>';
+        $("tbody").append('<tr>' + td0 +  td1 + td2 + td3 + td4 + '</tr>');
 
     });
 
@@ -92,15 +104,17 @@
         var p = document.getElementById("ProductId");
         var d = document.getElementById("DeveloperName");
         var t = document.getElementById("CustomerCardName").value;
+        var x = document.getElementById("CustomerCardId").value;
         $('tbody tr').each(function () {
-            var Explanation = $(this).find('#Explanation').val();
-            var Priorty = $(this).find('#Priorty').val();
-            var DeveloperName = $(this).find('#DeveloperName').val();
-            var FinishedDate = $(this).find('#FinishedDate').val();
+            var Explanation = $(this).find('#user_Explanation').val();
+            var Priorty = $(this).find('#user_Priorty').val();
+            var DeveloperName = $(this).find('#user_DeveloperName').val();
+            var FinishedDate = $(this).find('#user_FinishedDate').val();
             var CustomerName = $('#CustomerId option:selected').val()
             var CustomerCardName = t;
+            var CustomerCardId = x;
             var ProductManagerName = p.innerText;
-            var ExpectedReturnDate = $(this).find('#ExpectedReturnDate').val();
+            var CustomerCardRowId = $(this).find('#user_CustomerCardRowId').val();
             var Recipient = $(this).find('#Recipient').val();
             var Type = $(this).find('#Type').val();
             var ApprovedBy = $(this).find('#ApprovedBy').val();
@@ -113,8 +127,8 @@
                 'CustomerCardName': CustomerCardName,
                 'ProductManagerName': ProductManagerName,
                 'FinishedDate': FinishedDate,
-                'ExpectedReturnDate': ExpectedReturnDate,
-                'Recipient': Recipient,
+                'CustomerCardRowId': CustomerCardRowId,
+                'CustomerCardId': CustomerCardId,
                 'Type': Type,
                 'ApprovedBy': ApprovedBy,
                 'HeadOfDepartment': HeadOfDepartment,
@@ -129,7 +143,7 @@
         var data = JSON.stringify(getAllData());
         console.log(data)
         $.ajax({
-            url: '/CustomerCard/Create',
+            url: '/CustomerCard/Edit',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',

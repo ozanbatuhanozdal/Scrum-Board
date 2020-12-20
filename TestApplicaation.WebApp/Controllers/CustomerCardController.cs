@@ -22,13 +22,15 @@ namespace TestApplication.WebApp.Controllers
 
         private readonly ICustomerCardManager _customerCardManager;
         private readonly ICustomerManager _customerManager;
+        private readonly ICustomerCardRowManager _customerCardRowManager;
         private readonly IUserManager _userManager;
         private readonly IMapper _mapper;
 
 
-        public CustomerCardController(ILoggedUserProvider loggedUserProvider,ICustomerCardManager customerCardManager,IUserManager userManager,IMapper mapper,ICustomerManager customerManager) :base(loggedUserProvider)
+        public CustomerCardController(ILoggedUserProvider loggedUserProvider,ICustomerCardManager customerCardManager,ICustomerCardRowManager customerCardRowManager,IUserManager userManager,IMapper mapper,ICustomerManager customerManager) :base(loggedUserProvider)
         {
             _customerCardManager = customerCardManager;
+            _customerCardRowManager = customerCardRowManager;
             _customerManager = customerManager;
             _userManager = userManager;
             _mapper = mapper;
@@ -60,8 +62,7 @@ namespace TestApplication.WebApp.Controllers
                 });
             });
           
-
-           // List<CustomerCardListDto> empty = _mapper.Map<List<CustomerCardListDto>>(customerCards);
+            //List<CustomerCardListDto> empty = _mapper.Map<List<CustomerCardListDto>>(customerCards);
             List<CustomerListDto> customerListDtos = _mapper.Map<List<CustomerListDto>>(customers);
 
             //List<CustomerCardListDto> customerListDto = _mapper.Map<List<CustomerListDto>>(empty);
@@ -86,8 +87,9 @@ namespace TestApplication.WebApp.Controllers
             CustomerCardAddDto customerCardAddDto = new CustomerCardAddDto();
             customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDtos;
             customerCardAddDto.CustomerCardName = customerCardRowAddDtos[0].CustomerCardName;
-            customerCardAddDto.CustomerName = customerCardRowAddDtos[0].CustomerName;
-            Customer customer = _customerManager.Find(x => x.CustomerName == customerCardAddDto.CustomerName);
+            customerCardAddDto.ProductManagerName = customerCardRowAddDtos[0].ProductManagerName;
+            Customer customer = _customerManager.Find(x => x.CustomerId == Convert.ToInt32(customerCardRowAddDtos[0].CustomerName));
+            customerCardAddDto.CustomerName = customer.CustomerName;
             customerCardAddDto.FinishedDate = DateTime.Now.AddDays(7);
             if (ModelState.IsValid)
             {
@@ -97,7 +99,7 @@ namespace TestApplication.WebApp.Controllers
                 customerCardAdd.CustomerCardRow = customerCardRow;
                 customerCardAdd.CustomerId = customer.CustomerId;
                 await _customerCardManager.AddAsync(customerCardAdd);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             else
             {
@@ -110,31 +112,47 @@ namespace TestApplication.WebApp.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            Customer updateCustomer = await _customerManager.FindById(id);
+            CustomerCard customerCard = await _customerCardManager.FindById(id);
 
-            CustomerUpdateDto customerUpdateDto = _mapper.Map<CustomerUpdateDto>(updateCustomer);
-            return View(customerUpdateDto);
+            List<CustomerCardRow> customerCardRows = await _customerCardRowManager.GetAllASync(x => x.CustomerCardId == id);
+
+            
+            List<CustomerCardRowAddDto> customerCardRowAddDto = _mapper.Map<List<CustomerCardRowAddDto>>(customerCardRows);
+
+            CustomerCardAddDto customerCardAddDto = _mapper.Map<CustomerCardAddDto>(customerCard);
+
+            customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDto;
+            ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(), "CustomerId", "CustomerName");
+            ViewBag.DeveloperName = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
+            ViewBag.ProductId = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
+            customerCardAddDto.FinishedDate = DateTime.Now;
+            return View(customerCardAddDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(CustomerUpdateDto customerUpdateDto)
+        public async Task<IActionResult> Edit([FromBody] string CustomerCard)
         {
+            List<CustomerCardRowAddDto> customerCardRowAddDtos = JsonConvert.DeserializeObject<List<CustomerCardRowAddDto>>(CustomerCard);
+            CustomerCardAddDto customerCardAddDto = new CustomerCardAddDto();
+            customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDtos;
+            customerCardAddDto.CustomerCardName = customerCardRowAddDtos[0].CustomerCardName;
+            customerCardAddDto.ProductManagerName = customerCardRowAddDtos[0].ProductManagerName;
+            customerCardAddDto.CustomerCardId = customerCardRowAddDtos[0].CustomerCardId;
+            Customer customer = _customerManager.Find(x => x.CustomerId == Convert.ToInt32(customerCardRowAddDtos[0].CustomerName));
+            customerCardAddDto.CustomerName = customer.CustomerName;           
             if (ModelState.IsValid)
             {
-                Customer updatedCustomer = await _customerManager.FindById(customerUpdateDto.CustomerId);
-                if (updatedCustomer == null)
-                {
-                    return View(customerUpdateDto);
-                }
-                updatedCustomer = _mapper.Map<Customer>(customerUpdateDto);
-                await _customerManager.UpdateAsync(updatedCustomer);
-                return RedirectToAction("Index");
+                List<CustomerCardRow> customerCardRow = _mapper.Map<List<CustomerCardRow>>(customerCardRowAddDtos);
+                CustomerCard customerCardAdd = _mapper.Map<CustomerCard>(customerCardAddDto);
+                customerCardRow.ForEach(x => x.CustomerCardId = customerCardAdd.CustomerCardId);
+                customerCardAdd.CustomerCardRow = customerCardRow;
+                customerCardAdd.CustomerId = customer.CustomerId;
+                await _customerCardManager.UpdateAsync(customerCardAdd);
+                return RedirectToAction("Index", "Home");
             }
             else
             {
-
-
-                return View(customerUpdateDto);
+                return View();
             }
         }
 

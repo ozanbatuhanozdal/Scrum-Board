@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Order List</h1>
+                <h1>Customer Cards List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -37,19 +37,17 @@
 
                 <div class="card">
                     <div class="card-header">
+                        <a href="@Url.Action("Create", "CustomerCard")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New CustomerCard</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th width="50"></th>
-                                    <th>Order Id</th>
-                                    <th>Table Name</th>
-                                    <th>Order Price</th>
-                                    <th>Order Status</th>
-                                    <th>Order Date</th>
-                                    <th>Paid</th>
+                                    <th width="50"></th>                                    
+                                    <th>Customer Name</th>                                  
+                                    <th>Customer Phone</th>
+                                    <th>Customer Address</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,20 +70,27 @@
                                                     <table id="nested1" class="table table-bordered table-striped" cellspacing="0" width="100%">
                                                         <thead>
                                                             <tr>
-                                                                <th>Meal Name</th>
-                                                                <th>Meal Note</th>
-                                                                <th>Meal Count</th>
-                                                                <th>Meal Price</th>
+                                                                <th>Customer Card Id</th>
+                                                                <th>Customer Card Name</th>
+                                                                <th>Produt Manager Name</th>       
+                                                                <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach (var cards in customers.CustomerCards)
                                                             {
-                                                                <tr>
-                                                                    <td>@cards.CustomerCardId</td>
-                                                                    <td>@cards.CustomerCardName</td>
-                                                                    <td>@cards.ProductManagerName</td>                                                                    
-                                                                </tr>
+                                                            <tr>
+                                                                <td>@cards.CustomerCardId</td>
+                                                                <td>@cards.CustomerCardName</td>
+                                                                <td>@cards.ProductManagerName</td>
+                                                                <td>
+                                                                    <a href="@Url.Action("Detail", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                                    <a href="@Url.Action("Edit", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
+                                                                    <a href="@Url.Action("Delete", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+
+
+                                                                </td>
+                                                            </tr>
                                                             }
                                                         </tbody>
                                                     </table>

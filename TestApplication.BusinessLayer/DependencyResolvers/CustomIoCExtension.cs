@@ -26,6 +26,9 @@ namespace TestApplication.BusinessLayer.DependencyResolvers
             services.AddScoped<ICustomerCardManager, CustomerCardManager>();
             services.AddScoped<ICustomerCardRepository, CustomerCardRepository>();
 
+            services.AddScoped<ICustomerCardRowManager, CustomerCardRowManager>();
+            services.AddScoped<ICustomerCardRowRepository, CustomerCardRowRepository>();
+
             services.AddScoped<IUserTypeManager, UserTypeManager>();
             services.AddScoped<IUserTypeRepository, UserTypeRepository>();
 
