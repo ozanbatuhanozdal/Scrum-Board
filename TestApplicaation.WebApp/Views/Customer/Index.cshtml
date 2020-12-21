@@ -63,8 +63,7 @@
                                     <td>@customers.CustomerName</td>
                                     <td>@customers.CustomerAddress</td>
                                     <td>@customers.CustomerPhone</td>
-                                    <td>
-                                        <a href="@Url.Action("Detail", "Customer", new { id = customers.CustomerId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                    <td>                                       
                                         <a href="@Url.Action("Edit", "Customer", new { id = customers.CustomerId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
                                         <a href="@Url.Action("Delete", "Customer", new { id = customers.CustomerId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
 

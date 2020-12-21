@@ -11,16 +11,11 @@ namespace TestApplication.Common.Dto.BaseDto
         public byte IsActive { get; set; }
 
         public BaseClassDto()
-        {
-            CreateDate = DateTime.Now;
+        {          
             CreatedByUserId = 1;
             IsActive = 1;
         }
 
-
-        public BaseClassDto(int userId)
-        {
-            CreatedByUserId = userId;
-        }
+   
     }
 }

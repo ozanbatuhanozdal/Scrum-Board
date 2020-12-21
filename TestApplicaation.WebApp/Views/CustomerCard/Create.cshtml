@@ -99,7 +99,7 @@
             var FinishedDate = $(this).find('#FinishedDate').val();
             var CustomerName = $('#CustomerId option:selected').val()
             var CustomerCardName = t;
-            var ProductManagerName = p.innerText;
+            var ProductManagerName = p.value;
             var ProgressId = 0;
             var Recipient = $(this).find('#Recipient').val();
             var Type = $(this).find('#Type').val();
@@ -139,7 +139,7 @@
                 alert("Data Added Successfully");
             },
             error: function () {
-               location.href = '@Html.Raw(@Url.Action("Index", "CustomerCard"))';
+               location.href = '@Html.Raw(@Url.Action("Index", "Home"))';
             }
         });
     });

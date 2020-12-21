@@ -52,7 +52,7 @@
                                 <tr>
                                     <th>Developer Name</th>                                    
                                     <th>Customer Phone </th>
-                                    <th>Detail/Edit/Delete</th>
+                                    <th>Edit/Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,8 +62,7 @@
                                         <td>@user.Name</td>
                                         <td>@user.Email</td>
                                         <td>@user.Password</td>
-                                        <td>
-                                            <a href="@Url.Action("Detail", "User", new { id = user.UserId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                        <td>                                           
                                             <a href="@Url.Action("Edit", "User", new { id = user.UserId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
                                             <a href="@Url.Action("Delete", "User", new { id = user.UserId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
 

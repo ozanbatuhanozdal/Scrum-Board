@@ -85,6 +85,9 @@ namespace TestApplication.DataAccess.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<double>("CostOfCardTime")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -133,7 +136,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2020, 12, 21, 3, 14, 32, 933, DateTimeKind.Local).AddTicks(2588),
+                            CreatedDate = new DateTime(2020, 12, 21, 14, 12, 54, 227, DateTimeKind.Local).AddTicks(9597),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -194,7 +197,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserUserTypeId = 1,
-                            CreatedDate = new DateTime(2020, 12, 21, 3, 14, 32, 934, DateTimeKind.Local).AddTicks(8828),
+                            CreatedDate = new DateTime(2020, 12, 21, 14, 12, 54, 228, DateTimeKind.Local).AddTicks(9218),
                             UserId = 1,
                             UserTypeId = 1
                         });

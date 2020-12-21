@@ -38,7 +38,8 @@ namespace TestApplication.WebApp.Controllers
 
             CustomerCardAddDto customerCardAddDto = _mapper.Map<CustomerCardAddDto>(customerCard);
 
-            customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDto;              
+            customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDto;
+            customerCardAddDto.CreateDate = customerCard.CreatedDate;
             return View(customerCardAddDto);
         }
 
@@ -63,6 +64,9 @@ namespace TestApplication.WebApp.Controllers
         {
             CustomerCardRow customerCardRow = await _customerCardRowManager.FindById(id);
             int routeId = customerCardRow.CustomerCardId;
+            CustomerCard customerCard = await _customerCardManager.FindById(customerCardRow.CustomerCardId);
+            customerCard.CostOfCardTime -= 4;
+            await _customerCardManager.UpdateAsync(customerCard);
             await _customerCardRowManager.RemoveAsync(customerCardRow);
             return RedirectToAction("Index", "Scrum", new { id = routeId });
         }

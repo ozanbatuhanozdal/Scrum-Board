@@ -17,6 +17,8 @@ namespace TestApplication.Entities.Models
 
         public string ProductManagerName { get; set; }
 
+        public double CostOfCardTime { get; set; }
+
         public int CustomerId { get; set; }
         
     }

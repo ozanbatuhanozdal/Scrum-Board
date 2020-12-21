@@ -27,7 +27,7 @@
     <table class="table">
         <thead>
             <tr>
-                 @Html.HiddenFor(model => model.CustomerCardId);
+                 @Html.HiddenFor(model => model.CustomerCardId);                
                 <th>
                     Id
                 </th>
@@ -47,12 +47,14 @@
         </thead>
 
         <tbody>
-                @foreach(var user in Model.CustomerCardRowAddDto)
-                {
+            @foreach (var user in Model.CustomerCardRowAddDto)
+            {
+                
             <tr>
+
                 <td>
-                  @Html.EditorFor(modelItem => user.CustomerCardRowId, new { htmlAttributes = new { @class = "form-control" , @disabled = "disabled" } })
-                    </td>
+                    @Html.EditorFor(modelItem => user.CustomerCardRowId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </td>
                 <td>
                     @Html.EditorFor(modelItem => user.Explanation, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
@@ -65,9 +67,10 @@
                 <td>
                     @Html.EditorFor(modelItem => user.FinishedDate, new { htmlAttributes = new { @class = "form-control" } })
                 </td>
+                <td style="visibility:hidden">@Html.HiddenFor(modelItem => user.ProgressId)</td>
 
             </tr>
-                }
+            }
         </tbody>
 
         <tfoot>
@@ -113,12 +116,12 @@
             var CustomerName = $('#CustomerId option:selected').val()
             var CustomerCardName = t;
             var CustomerCardId = x;
-            var ProductManagerName = p.innerText;
+            var ProductManagerName = p.value;
             var CustomerCardRowId = $(this).find('#user_CustomerCardRowId').val();
-            var Recipient = $(this).find('#Recipient').val();
+            var ProgressId = $(this).find("#user_ProgressId").val();
             var Type = $(this).find('#Type').val();
             var ApprovedBy = $(this).find('#ApprovedBy').val();
-            var HeadOfDepartment = $(this).find('#HeadOfDepartment').val();
+            var HeadOfDepartment = $(this).find('#HeadOfDepartment').value;
             var alldata = {
                 'Explanation': Explanation,
                 'Priorty': Priorty,
@@ -129,7 +132,7 @@
                 'FinishedDate': FinishedDate,
                 'CustomerCardRowId': CustomerCardRowId,
                 'CustomerCardId': CustomerCardId,
-                'Type': Type,
+                'ProgressId': ProgressId,
                 'ApprovedBy': ApprovedBy,
                 'HeadOfDepartment': HeadOfDepartment,
             }
@@ -153,7 +156,7 @@
                 alert("Data Added Successfully");
             },
             error: function () {
-               location.href = '@Html.Raw(@Url.Action("Index", "CustomerCard"))';
+               location.href = '@Html.Raw(@Url.Action("Index", "Home"))';
             }
         });
     });

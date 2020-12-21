@@ -86,8 +86,9 @@ namespace TestApplication.WebApp.Controllers
             List<CustomerCardRowAddDto> customerCardRowAddDtos = JsonConvert.DeserializeObject<List<CustomerCardRowAddDto>>(CustomerCard);
             CustomerCardAddDto customerCardAddDto = new CustomerCardAddDto();
             customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDtos;
+            User user = await _userManager.FindById(Convert.ToInt32(customerCardRowAddDtos[0].ProductManagerName));
             customerCardAddDto.CustomerCardName = customerCardRowAddDtos[0].CustomerCardName;
-            customerCardAddDto.ProductManagerName = customerCardRowAddDtos[0].ProductManagerName;
+            customerCardAddDto.ProductManagerName = user.Name;
             Customer customer = _customerManager.Find(x => x.CustomerId == Convert.ToInt32(customerCardRowAddDtos[0].CustomerName));
             customerCardAddDto.CustomerName = customer.CustomerName;
             customerCardAddDto.FinishedDate = DateTime.Now.AddDays(7);
@@ -98,6 +99,7 @@ namespace TestApplication.WebApp.Controllers
                 customerCardRow.ForEach(x => x.CustomerCardId = customerCardAdd.CustomerCardId);
                 customerCardAdd.CustomerCardRow = customerCardRow;
                 customerCardAdd.CustomerId = customer.CustomerId;
+                customerCardAdd.CostOfCardTime = customerCardAdd.CustomerCardRow.Count * 4;
                 await _customerCardManager.AddAsync(customerCardAdd);
                 return RedirectToAction("Index","Home");
             }
@@ -131,9 +133,10 @@ namespace TestApplication.WebApp.Controllers
         {
             List<CustomerCardRowAddDto> customerCardRowAddDtos = JsonConvert.DeserializeObject<List<CustomerCardRowAddDto>>(CustomerCard);
             CustomerCardAddDto customerCardAddDto = new CustomerCardAddDto();
+            User user = await _userManager.FindById(Convert.ToInt32(customerCardRowAddDtos[0].ProductManagerName));
             customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDtos;
             customerCardAddDto.CustomerCardName = customerCardRowAddDtos[0].CustomerCardName;
-            customerCardAddDto.ProductManagerName = customerCardRowAddDtos[0].ProductManagerName;
+            customerCardAddDto.ProductManagerName = user.Name;
             customerCardAddDto.CustomerCardId = customerCardRowAddDtos[0].CustomerCardId;
             Customer customer = _customerManager.Find(x => x.CustomerId == Convert.ToInt32(customerCardRowAddDtos[0].CustomerName));
             customerCardAddDto.CustomerName = customer.CustomerName;           
@@ -143,7 +146,7 @@ namespace TestApplication.WebApp.Controllers
                 CustomerCard customerCardAdd = _mapper.Map<CustomerCard>(customerCardAddDto);
                 customerCardRow.ForEach(x => x.CustomerCardId = customerCardAdd.CustomerCardId);
                 customerCardAdd.CustomerCardRow = customerCardRow;
-                customerCardAdd.CustomerId = customer.CustomerId;
+                customerCardAdd.CustomerId = customer.CustomerId;                
                 await _customerCardManager.UpdateAsync(customerCardAdd);
                 return RedirectToAction("Index", "Home");
             }
@@ -155,32 +158,18 @@ namespace TestApplication.WebApp.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Customer deletedCustomer = await _customerManager.FindById(id);
-
-            CustomerListDto customer = _mapper.Map<CustomerListDto>(deletedCustomer);
-
-            return View(customer);
+            CustomerCard deletedCustomer = await _customerCardManager.FindById(id);
+            
+            await _customerCardManager.RemoveAsync(deletedCustomer);
+            return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(CustomerListDto customerListDto)
-        {
-            Customer deletedCustomer = _mapper.Map<Customer>(customerListDto);
-            await _customerManager.RemoveAsync(deletedCustomer);
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Detail()
-        {
-            return View();
-        }
 
         public JsonResult SaveData([FromBody] string test)//WebMethod to Save the data  
         {
             var serialize  = JsonConvert.DeserializeObject(test);
             serialize.ToString();
             List<CustomerCardRow> cardrow = JsonConvert.DeserializeObject<List<CustomerCardRow>>(test);           
-           
             try
             {
                 
