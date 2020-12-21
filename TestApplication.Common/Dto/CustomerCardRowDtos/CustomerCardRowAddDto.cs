@@ -19,6 +19,8 @@ namespace TestApplication.Common.Dto.CustomerCardRowDtos
 
         public string ProductManagerName { get; set; }
 
+        public int ProgressId { get; set; }
+
         public string Priorty { get; set; }
 
         public DateTime FinishedDate { get; set; }

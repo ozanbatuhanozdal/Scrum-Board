@@ -1,0 +1,172 @@
+﻿@using TestApplication.Common.Dto.CustomerCardDtos
+
+@model CustomerCardAddDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="scrum-content">
+    <section>
+        <hr />
+        <div class="card-group ">
+            <div class="card bg-default">
+                <div class="card-header text-center">
+                    <strong>Backlog</strong>
+                </div>
+                <div class="card-body">
+                    @foreach (var model in Model.CustomerCardRowAddDto)
+                    {
+                        int id = model.CustomerCardRowId;
+                        if (model.ProgressId == 0)
+                        {
+                        <div class="card mb-2 text-white bg-dark">
+                            <div class="card-header">                               
+                              
+                            </div>
+                            <div class="card-body  ">
+                                <p class="card-text">
+                                        Developer Name: @Html.DisplayName(model.DeveloperName) <br />
+                                        Priorty: @Html.DisplayName(model.Priorty)
+                                </p>
+                                <footer class="blockquote-footer text-white card-text">     
+                                    <strong>
+                                  Job Explanation:@Html.DisplayName(model.Explanation)
+                                    </strong>
+                                </footer>
+                            </div>
+                            <div class="card-footer text-right">
+                                <a asp-action="TaskMove" asp-route-id="@id" class="btn btn-sm btn-light">
+                                    <i class="fas fa-play"></i> Start
+                                </a>
+                                <a asp-action="RemoveTask" class="btn btn-sm btn-light ">
+                                    <i class="fas fa-trash"></i> Remove
+                                </a>
+                            </div>
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header text-center">
+                    <strong>In Progress</strong>
+                </div>
+                <div class="card-body">
+                    @foreach (var model in Model.CustomerCardRowAddDto)
+                    {
+                        int id = model.CustomerCardRowId;
+                        if (model.ProgressId == 1)
+                        {
+                            <div class="card mb-2 text-white bg-danger">
+                                <div class="card-header">
+                                    <strong>
+                                        Firstname
+                                    </strong>
+                                </div>
+                                <div class="card-body  ">
+                                    <p class="card-text">
+                                        Developer Name: @Html.DisplayName(model.DeveloperName) <br />
+                                        Priorty: @Html.DisplayName(model.Priorty)
+                                    </p>
+                                    <footer class="blockquote-footer text-white">
+                                        <strong>
+                                            Job Explanation:@Html.DisplayName(model.Explanation)
+                                        </strong>
+                                    </footer>
+                                </div>
+                                <div class="card-footer text-right">
+                                    <a asp-action="TaskMove" asp-route-id="@id" class="btn btn-sm btn-light">
+                                        <i class="fas fa-vial"></i> Verify
+                                    </a>
+                                    <a asp-action="RemoveTask" class="btn btn-sm btn-light">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                        </div>
+            </div>
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>Test</strong>
+                </div>
+                <div class="card-body">
+                    @foreach (var model in Model.CustomerCardRowAddDto)
+                    {
+                        int id = model.CustomerCardRowId;
+                        if (model.ProgressId == 2)
+                        {
+                    <div class="card mb-2 text-white bg-warning">
+                        <div class="card-header">
+                            <strong>
+                            </strong>
+                        </div>
+                        <div class="card-body  ">
+                            <p class="card-text">
+                                Developer Name: @Html.DisplayName(model.DeveloperName) <br />
+                                Priorty: @Html.DisplayName(model.Priorty)
+                            </p>
+                            <footer class="blockquote-footer text-white">
+                                <strong>
+                                    Job Explanation:@Html.DisplayName(model.Explanation)
+                                </strong>
+                            </footer>
+                        </div>
+                        <div class="card-footer text-right">
+                            <a asp-action="TaskMove" asp-route-id="@id" class="btn btn-sm btn-light">
+                                <i class="fas fa-check"></i> Complete
+                            </a>
+                            <a asp-action="RemoveTask" class="btn btn-sm btn-light">
+                                <i class="fas fa-trash"></i> Remove
+                            </a>
+                        </div>
+                    </div>
+                        }
+                    }
+                        </div>
+            </div>
+            <div class="card ">
+                <div class="card-header text-center">
+                    <strong>Completed</strong>
+                </div>
+                <div class="card-body">
+                    @foreach (var model in Model.CustomerCardRowAddDto)
+                    {
+                        int id = model.CustomerCardRowId;
+                        if (model.ProgressId == 3)
+                        {
+                    <div class="card mb-2 text-white bg-success">
+                        <div class="card-header">
+
+                            <strong>
+
+                            </strong>
+                        </div>
+                        <div class="card-body  ">
+                            <p class="card-text">
+                                Developer Name: @Html.DisplayName(model.DeveloperName) <br />
+                                Priorty: @Html.DisplayName(model.Priorty)
+                            </p>
+                            <footer class="blockquote-footer text-white">
+                                <strong>
+                                    Job Explanation:@Html.DisplayName(model.Explanation)
+                                </strong>
+                            </footer>
+                        </div>
+                    </div>
+                        }
+                    }
+                        </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+
+
+

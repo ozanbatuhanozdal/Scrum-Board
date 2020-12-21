@@ -44,6 +44,9 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<string>("Priorty")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProgressId")
+                        .HasColumnType("int");
+
                     b.HasKey("CustomerCardRowId");
 
                     b.HasIndex("CustomerCardId");
@@ -130,7 +133,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2020, 12, 14, 22, 44, 9, 709, DateTimeKind.Local).AddTicks(8057),
+                            CreatedDate = new DateTime(2020, 12, 21, 3, 14, 32, 933, DateTimeKind.Local).AddTicks(2588),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -191,7 +194,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserUserTypeId = 1,
-                            CreatedDate = new DateTime(2020, 12, 14, 22, 44, 9, 710, DateTimeKind.Local).AddTicks(7532),
+                            CreatedDate = new DateTime(2020, 12, 21, 3, 14, 32, 934, DateTimeKind.Local).AddTicks(8828),
                             UserId = 1,
                             UserTypeId = 1
                         });

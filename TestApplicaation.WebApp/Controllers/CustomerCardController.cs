@@ -103,10 +103,7 @@ namespace TestApplication.WebApp.Controllers
             }
             else
             {
-
-
-                return View();
-                 
+                return View(CustomerCard);
             }
         }
 
@@ -152,7 +149,7 @@ namespace TestApplication.WebApp.Controllers
             }
             else
             {
-                return View();
+                return View(CustomerCard);
             }
         }
 

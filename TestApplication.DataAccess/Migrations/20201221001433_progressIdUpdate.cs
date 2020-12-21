@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplication.DataAccess.Migrations
 {
-    public partial class test : Migration
+    public partial class progressIdUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -112,6 +112,7 @@ namespace TestApplication.DataAccess.Migrations
                     DeveloperName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Priorty = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FinishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProgressId = table.Column<int>(type: "int", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -129,7 +130,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "CreatedDate", "Email", "Name", "Password" },
-                values: new object[] { 1, new DateTime(2020, 12, 14, 22, 44, 9, 709, DateTimeKind.Local).AddTicks(8057), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
+                values: new object[] { 1, new DateTime(2020, 12, 21, 3, 14, 32, 933, DateTimeKind.Local).AddTicks(2588), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
 
             migrationBuilder.InsertData(
                 table: "UserType",
@@ -139,7 +140,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "userUserTypes",
                 columns: new[] { "UserUserTypeId", "CreatedDate", "UserId", "UserTypeId" },
-                values: new object[] { 1, new DateTime(2020, 12, 14, 22, 44, 9, 710, DateTimeKind.Local).AddTicks(7532), 1, 1 });
+                values: new object[] { 1, new DateTime(2020, 12, 21, 3, 14, 32, 934, DateTimeKind.Local).AddTicks(8828), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerCard_CustomerId",

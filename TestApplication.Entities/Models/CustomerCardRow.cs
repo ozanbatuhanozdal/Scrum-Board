@@ -18,6 +18,8 @@ namespace TestApplication.Entities
 
         public DateTime FinishedDate { get; set; }
 
+        public int ProgressId { get; set; }
+
         public string Explanation { get; set; }
         
     }

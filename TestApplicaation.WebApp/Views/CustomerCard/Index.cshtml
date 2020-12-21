@@ -56,13 +56,11 @@
                                     foreach (var customers in Model)
                                     {
 
-                                    <tr>
+                                        <tr>
                                             <td width="50"><a href="#" id="show_@customers.CustomerId"><i class="fa fa-plus"></i></a></td>
                                             <td>@customers.CustomerName</td>
                                             <td>@customers.CustomerPhone</td>
                                             <td>@customers.CustomerAddress</td>
-                                            
-                                     
                                         </tr>
                                         <tr>
                                             <td colspan="6">
@@ -84,7 +82,7 @@
                                                                 <td>@cards.CustomerCardName</td>
                                                                 <td>@cards.ProductManagerName</td>
                                                                 <td>
-                                                                    <a href="@Url.Action("Detail", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                                    <a href="@Url.Action("Index", "Scrum", new { id = cards.CustomerCardId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                                                     <a href="@Url.Action("Edit", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
                                                                     <a href="@Url.Action("Delete", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
 

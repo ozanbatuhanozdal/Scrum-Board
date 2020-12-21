@@ -100,7 +100,7 @@
             var CustomerName = $('#CustomerId option:selected').val()
             var CustomerCardName = t;
             var ProductManagerName = p.innerText;
-            var ExpectedReturnDate = $(this).find('#ExpectedReturnDate').val();
+            var ProgressId = 0;
             var Recipient = $(this).find('#Recipient').val();
             var Type = $(this).find('#Type').val();
             var ApprovedBy = $(this).find('#ApprovedBy').val();
@@ -113,7 +113,7 @@
                 'CustomerCardName': CustomerCardName,
                 'ProductManagerName': ProductManagerName,
                 'FinishedDate': FinishedDate,
-                'ExpectedReturnDate': ExpectedReturnDate,
+                'ProgressId': ProgressId,
                 'Recipient': Recipient,
                 'Type': Type,
                 'ApprovedBy': ApprovedBy,
