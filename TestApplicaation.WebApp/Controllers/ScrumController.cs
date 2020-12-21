@@ -34,8 +34,6 @@ namespace TestApplication.WebApp.Controllers
             Customer customer = await _customerManager.FindById(id);
 
             List<CustomerCardRow> customerCardRows = await _customerCardRowManager.GetAllASync(x => x.CustomerCardId == id);
-
-
             List<CustomerCardRowAddDto> customerCardRowAddDto = _mapper.Map<List<CustomerCardRowAddDto>>(customerCardRows);
 
             CustomerCardAddDto customerCardAddDto = _mapper.Map<CustomerCardAddDto>(customerCard);
@@ -48,17 +46,27 @@ namespace TestApplication.WebApp.Controllers
         public async Task<IActionResult> TaskMove(int id)
         {
             CustomerCardRow customerCardRow = await _customerCardRowManager.FindById(id);
-
             customerCardRow.ProgressId++;
-
             await _customerCardRowManager.UpdateAsync(customerCardRow);
             return RedirectToAction("Index", "Scrum", new { id = customerCardRow.CustomerCardId });
         }
 
-        public async Task<IActionResult> RemoveTask(int id)
+        public async Task<IActionResult> TaskBack(int id)
         {
-
-            return View();
+            CustomerCardRow customerCardRow = await _customerCardRowManager.FindById(id);
+            customerCardRow.ProgressId--;
+            await _customerCardRowManager.UpdateAsync(customerCardRow);
+            return RedirectToAction("Index", "Scrum", new { id = customerCardRow.CustomerCardId });
         }
+
+        public async Task<IActionResult> TaskRemove(int id)
+        {
+            CustomerCardRow customerCardRow = await _customerCardRowManager.FindById(id);
+            int routeId = customerCardRow.CustomerCardId;
+            await _customerCardRowManager.RemoveAsync(customerCardRow);
+            return RedirectToAction("Index", "Scrum", new { id = routeId });
+        }
+
+
     }
 }

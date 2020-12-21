@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestApplicaation.WebApp.Models;
 using TestApplication.BusinessLayer.Interfaces;
+using TestApplication.Common.Dto.CustomerDtos;
 using TestApplication.Common.Dto.UserDtos;
 using TestApplication.CustomFilters;
 using TestApplication.Entities.Models;
@@ -24,18 +26,50 @@ namespace TestApplication.WebApp.Controllers
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserManager _userManager;
+        private readonly ICustomerCardManager _customerCardManager;
+        private readonly ICustomerManager _customerManager;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILoggedUserProvider loggedUserProvider,IHttpContextAccessor httpContextAccessor,IUserManager userManager) : base(loggedUserProvider)
+        public HomeController(ILoggedUserProvider loggedUserProvider,ICustomerCardManager customerCardManager,ICustomerManager customerManager,IMapper mapper,IHttpContextAccessor httpContextAccessor,IUserManager userManager) : base(loggedUserProvider)
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
+            _customerCardManager = customerCardManager;
+            _customerManager = customerManager;
+            _mapper = mapper;
             
         }
 
         [JwtAuthorize]
-        public IActionResult Index()
-        {   
-            return View();
+        public async Task<IActionResult> Index()
+        {
+            List<CustomerCard> customerCards = await _customerCardManager.GetAllASync();
+
+            List<Customer> customers = await _customerManager.GetAllASync();
+
+            /*
+            customers.ForEach(x =>
+            {
+                customerCards.ForEach(y =>
+                {
+                    if (y.CustomerId == x.CustomerId)
+                        x.CustomerCards.Add(y);
+                });
+            });*/
+            customerCards.ForEach(x =>
+            {
+                customers.ForEach(y =>
+                {
+                    if (y.CustomerId == x.CustomerId)
+                        y.CustomerCards.Add(x);
+                });
+            });
+
+            //List<CustomerCardListDto> empty = _mapper.Map<List<CustomerCardListDto>>(customerCards);
+            List<CustomerListDto> customerListDtos = _mapper.Map<List<CustomerListDto>>(customers);
+
+            //List<CustomerCardListDto> customerListDto = _mapper.Map<List<CustomerListDto>>(empty);
+            return View(customers);
         }
 
         public IActionResult Login()

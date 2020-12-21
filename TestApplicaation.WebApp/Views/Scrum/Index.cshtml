@@ -10,9 +10,9 @@
 <div class="scrum-content">
     <section>
         <hr />
-        <div class="card-group ">
+        <div class="card-group">
             <div class="card bg-default">
-                <div class="card-header text-center">
+                <div class="card-header text-center bg-dark">
                     <strong>Backlog</strong>
                 </div>
                 <div class="card-body">
@@ -23,9 +23,8 @@
                         {
                         <div class="card mb-2 text-white bg-dark">
                             <div class="card-header">                               
-                              
                             </div>
-                            <div class="card-body  ">
+                            <div class="card-body">
                                 <p class="card-text">
                                         Developer Name: @Html.DisplayName(model.DeveloperName) <br />
                                         Priorty: @Html.DisplayName(model.Priorty)
@@ -40,8 +39,8 @@
                                 <a asp-action="TaskMove" asp-route-id="@id" class="btn btn-sm btn-light">
                                     <i class="fas fa-play"></i> Start
                                 </a>
-                                <a asp-action="RemoveTask" class="btn btn-sm btn-light ">
-                                    <i class="fas fa-trash"></i> Remove
+                                <a asp-action="TaskRemove" asp-route-id="@id" class="btn btn-sm btn-light">
+                                    <i class="fas fa-trash"></i> 
                                 </a>
                             </div>
                         </div>
@@ -50,7 +49,7 @@
                 </div>
             </div>
             <div class="card ">
-                <div class="card-header text-center">
+                <div class="card-header text-center bg-danger">
                     <strong>In Progress</strong>
                 </div>
                 <div class="card-body">
@@ -61,9 +60,7 @@
                         {
                             <div class="card mb-2 text-white bg-danger">
                                 <div class="card-header">
-                                    <strong>
-                                        Firstname
-                                    </strong>
+                                    
                                 </div>
                                 <div class="card-body  ">
                                     <p class="card-text">
@@ -77,20 +74,25 @@
                                     </footer>
                                 </div>
                                 <div class="card-footer text-right">
+                                   
+                                    <a asp-action="TaskBack" asp-route-id="@id" class="btn btn-sm btn-light">
+                                        <i class="fas fa-arrow-left"></i> Back
+                                    </a>
+
                                     <a asp-action="TaskMove" asp-route-id="@id" class="btn btn-sm btn-light">
                                         <i class="fas fa-vial"></i> Verify
                                     </a>
-                                    <a asp-action="RemoveTask" class="btn btn-sm btn-light">
-                                        <i class="fas fa-trash"></i> Remove
+                                    <a asp-action="TaskRemove" asp-route-id="@id" class="btn btn-sm btn-light">
+                                        <i class="fas fa-trash"></i> 
                                     </a>
                                 </div>
                             </div>
                         }
                     }
-                        </div>
+                    </div>
             </div>
             <div class="card">
-                <div class="card-header text-center">
+                <div class="card-header text-center bg-warning">
                     <strong>Test</strong>
                 </div>
                 <div class="card-body">
@@ -100,9 +102,7 @@
                         if (model.ProgressId == 2)
                         {
                     <div class="card mb-2 text-white bg-warning">
-                        <div class="card-header">
-                            <strong>
-                            </strong>
+                        <div class="card-header">                        
                         </div>
                         <div class="card-body  ">
                             <p class="card-text">
@@ -116,20 +116,25 @@
                             </footer>
                         </div>
                         <div class="card-footer text-right">
+                            
+                            <a asp-action="TaskBack" asp-route-id="@id" class="btn btn-sm btn-light">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </a>
+
                             <a asp-action="TaskMove" asp-route-id="@id" class="btn btn-sm btn-light">
                                 <i class="fas fa-check"></i> Complete
                             </a>
-                            <a asp-action="RemoveTask" class="btn btn-sm btn-light">
-                                <i class="fas fa-trash"></i> Remove
+                            <a asp-action="TaskRemove" asp-route-id="@id" class="btn btn-sm btn-light">
+                                <i class="fas fa-trash"></i>
                             </a>
                         </div>
                     </div>
                         }
                     }
-                        </div>
+                  </div>
             </div>
             <div class="card ">
-                <div class="card-header text-center">
+                <div class="card-header text-center bg-success">
                     <strong>Completed</strong>
                 </div>
                 <div class="card-body">
@@ -140,10 +145,7 @@
                         {
                     <div class="card mb-2 text-white bg-success">
                         <div class="card-header">
-
-                            <strong>
-
-                            </strong>
+                       
                         </div>
                         <div class="card-body  ">
                             <p class="card-text">
@@ -156,10 +158,17 @@
                                 </strong>
                             </footer>
                         </div>
+                        <div class="card-footer text-right">
+                        
+                            <a asp-action="TaskBack" asp-route-id="@id" class="btn btn-sm btn-light">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </a>
+                         
+                        </div>
                     </div>
                         }
                     }
-                        </div>
+                </div>
             </div>
         </div>
     </section>

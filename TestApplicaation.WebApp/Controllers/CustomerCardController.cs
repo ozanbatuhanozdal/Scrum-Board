@@ -69,9 +69,9 @@ namespace TestApplication.WebApp.Controllers
             return View(customers);
         }
 
-        public async  Task<IActionResult> Create()
+        public async  Task<IActionResult> Create(int id)
         {
-            ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(), "CustomerId", "CustomerName");
+            ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(x=> x.CustomerId == id), "CustomerId", "CustomerName");
             ViewBag.DeveloperName = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
             ViewBag.ProductId = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
             CustomerCardAddDto cardAddDto = new();
@@ -119,7 +119,7 @@ namespace TestApplication.WebApp.Controllers
             CustomerCardAddDto customerCardAddDto = _mapper.Map<CustomerCardAddDto>(customerCard);
 
             customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDto;
-            ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(), "CustomerId", "CustomerName");
+            ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(x => x.CustomerId == id), "CustomerId", "CustomerName");
             ViewBag.DeveloperName = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
             ViewBag.ProductId = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
             customerCardAddDto.FinishedDate = DateTime.Now;

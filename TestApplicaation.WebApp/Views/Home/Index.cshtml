@@ -1,8 +1,152 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using TestApplication.Entities.Models
+
+
+@model List<Customer>
+@{
+    ViewData["Title"] = "Index";
+
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<link href="~/css/Datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/css/Datatables/responsive.bootstrap4.min.css" rel="stylesheet" />
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Customer Cards List</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                    <li class="breadcrumb-item active">Meal</li>
+                    <li class="breadcrumb-item active">Index</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-header">                       
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="50"></th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Phone</th>
+                                    <th>Customer Address</th>
+                                    <th>Create New CustomerCard</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    foreach (var customers in Model)
+                                    {
+
+                                          <tr>
+                                               <td width="50"><a href="#" id="show_@customers.CustomerId"><i class="fa fa-plus"></i></a></td>
+                                                <td>@customers.CustomerName</td>
+                                                 <td>@customers.CustomerPhone</td>
+                                                 <td>@customers.CustomerAddress</td>
+                                                                    
+                                               <td><a href="@Url.Action("Create", "CustomerCard", new { id = customers.CustomerId })" class="btn btn-primary"><i class="fa fa-plus p-1"></i></a></td>
+                                          </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <div id="extra_@customers.CustomerId" style="display: none; width:100%">
+                                                    <table id="nested1" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Customer Card Id</th>
+                                                                <th>Customer Card Name</th>
+                                                                <th>Product Manager Name</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var cards in customers.CustomerCards)
+                                                            {
+                                                                <tr>
+                                                                    <td>@cards.CustomerCardId</td>
+                                                                    <td>@cards.CustomerCardName</td>
+                                                                    <td>@cards.ProductManagerName</td>
+                                                                    <td>
+                                                                        <a href="@Url.Action("Index", "Scrum", new { id = cards.CustomerCardId })" class="btn btn-info">Scrumboard  <i class="fas fa-chevron-right"> </i> </a>
+                                                                        <a href="@Url.Action("Edit", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
+                                                                        <a href="@Url.Action("Delete", "CustomerCard", new { id = cards.CustomerCardId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+
+
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section Scripts
+{
+
+    <script>
+        window.onload = (function () {
+            $("#example1").dataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "aaSorting": [],
+            });
+
+            $("#nested1").dataTable({
+                "responsive": true,
+                "autoWidth": true,
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+                "aaSorting": [],
+            });
+
+        });
+
+
+        $("a[id^=show_]").click(function (event) {
+            $("#extra_" + $(this).attr('id').substr(5)).slideToggle("slow");
+            event.preventDefault();
+        });
+
+
+    </script>
+    <script type="text/javascript" src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/scripts/DataTables/responsive.bootstrap4.min.js"></script>
+
+}
