@@ -126,6 +126,29 @@ namespace TestApplication.WebApp.Controllers
         public IActionResult Register()
         {
             return View();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
+        {
+            if (ModelState.IsValid)
+            {
+
+
+                User addUser = _mapper.Map<User>(userRegisterDto);
+                List<UserUserType> userUserType = new List<UserUserType>();
+                userUserType.Add(new UserUserType() { UserId = addUser.UserId, UserTypeId = 1 });
+
+                addUser.userUserTypes = userUserType;
+                await _userManager.AddAsync(addUser);
+                return RedirectToAction("Login");
+            }
+            else
+            {
+
+                return View(userRegisterDto);
+
+            }
         }
 
         public IActionResult Signout()

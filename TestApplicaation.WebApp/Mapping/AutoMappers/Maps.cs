@@ -47,7 +47,9 @@ namespace TestApplication.WebApp.Mapping.AutoMappers
 
             CreateMap<UserAddDto, User>();
             CreateMap<User, UserAddDto>();
-            
+
+            CreateMap<UserRegisterDto, User>();
+            CreateMap<User, UserRegisterDto>();
 
 
             CreateMap<UserType, UserTypeAddDto>();
