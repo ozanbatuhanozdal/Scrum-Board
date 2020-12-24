@@ -161,6 +161,13 @@ namespace TestApplication.WebApp.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+        [Route("{*url}", Order = 999)]
+        public IActionResult Error()
+        {
+            Response.StatusCode = 404;
+            return View();
+        }
+
 
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestApplication.BusinessLayer.Interfaces;
 using TestApplication.BusinessLayer.Managers;
+using TestApplication.Common.Dto.CustomerDtos;
 using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
 using TestApplication.Entities.Models;
 using TestApplication.WebApp.Controllers;
@@ -25,10 +26,11 @@ namespace TestApplication.Test
         private  Mock<ILoggedUserProvider> _mockLoggedUserProvider;
         
         private  CustomerController _customerController;
-       
-               
-       
+
+
+
         private List<Customer> customers;
+        private List<CustomerAddDto> customerAddDtos;
         public CustomerControllerTest()
         {
             _mockCustomerManager = new Mock<ICustomerManager>();
@@ -50,7 +52,23 @@ namespace TestApplication.Test
                 CustomerAddress="İzmir",
                 CreatedDate = DateTime.Now} } };
 
+            customerAddDtos = new List<CustomerAddDto>() { new CustomerAddDto
+            {
+                
+                CustomerName="VakıfbankAŞ",
+                CustomerPhone = "534342",
+                CustomerAddress="Ümraniye",
+                } , { new CustomerAddDto
+            {
+               
+                CustomerName="Garanti",
+                CustomerPhone = "536123",
+                CustomerAddress="İzmir",
+                } } };
+
         }
+
+        
 
         [Fact]
         public async void Index_ActionExecute_ReturnView()
@@ -60,7 +78,38 @@ namespace TestApplication.Test
             Assert.IsType<ViewResult>(result);
 
         }
-            
+
+        [Fact]
+        public async void Index_ActionExecute_ReturnCustomerList()
+        {
+            _mockCustomerManager.Setup(repo => repo.GetAllASync()).ReturnsAsync(customers);
+
+            var result = await _customerController.Index();            
+
+            var viewResult = Assert.IsType<ViewResult>(result);            
+            Assert.Equal<int>(2, customers.Count());
+        }
+
+        [Fact]
+        public  void Create_ActionExecute_ReturnView()
+        {
+            var result =  _customerController.Create();
+
+            Assert.IsType<ViewResult>(result);
+
+        }
+        [Fact]
+        public async void Create_InvalidModelState_ReturnView()
+        {
+            _customerController.ModelState.AddModelError("Name", "Name Alanı Boş Geçilemez");
+
+            var result = await _customerController.Create(customerAddDtos.First());
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+
+            Assert.IsType<CustomerAddDto>(viewResult.Model);
+        }
+
 
     }
 }
