@@ -133,13 +133,12 @@ namespace TestApplication.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _userManager.FindByEmail(userRegisterDto.Email);
-                if (user.Email.ToLower() == userRegisterDto.Email.ToLower())
+                User user = await _userManager.FindByEmail(userRegisterDto.Email);              
+                if (user!=null)
                 {
                     ModelState.AddModelError("", "Your Email has been taken");
                     return View(userRegisterDto);
                 }
-                
                 User addUser = _mapper.Map<User>(userRegisterDto);
                 List<UserUserType> userUserType = new List<UserUserType>();
                 userUserType.Add(new UserUserType() { UserId = addUser.UserId, UserTypeId = 1 });
