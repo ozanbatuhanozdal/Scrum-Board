@@ -146,7 +146,8 @@ namespace TestApplication.WebApp.Controllers
                 CustomerCard customerCardAdd = _mapper.Map<CustomerCard>(customerCardAddDto);
                 customerCardRow.ForEach(x => x.CustomerCardId = customerCardAdd.CustomerCardId);
                 customerCardAdd.CustomerCardRow = customerCardRow;
-                customerCardAdd.CustomerId = customer.CustomerId;                
+                customerCardAdd.CustomerId = customer.CustomerId;
+                customerCardAdd.CostOfCardTime = customerCardAdd.CustomerCardRow.Count * 4;
                 await _customerCardManager.UpdateAsync(customerCardAdd);
                 return RedirectToAction("Index", "Home");
             }
