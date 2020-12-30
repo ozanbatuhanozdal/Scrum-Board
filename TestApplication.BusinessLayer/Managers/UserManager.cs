@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TestApplication.BusinessLayer.Interfaces;
 using TestApplication.Common.Dto.UserDtos;
+using TestApplication.DataAccess.EntityFrameworkCore;
 using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
 using TestApplication.Entities.Models;
 
 namespace TestApplication.BusinessLayer.Managers
 {
-    public class UserManager : ManagerBase<User> , IUserManager
+    public class UserManager : ManagerBase<User>, IUserManager
     {
         private readonly IUserRepository _userRepository;
 
@@ -37,5 +39,13 @@ namespace TestApplication.BusinessLayer.Managers
         {
             return await _userRepository.GetRolesByEmail(email);
         }
+
+
+        public async Task EditUser(User user)
+        {
+            await _userRepository.EditUser(user);
+        }
+
+
     }
 }

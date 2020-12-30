@@ -9,5 +9,7 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
     public interface IUserRepository : IRepositoryBase<User>
     {
         Task<List<UserType>> GetRolesByEmail(string email);
+
+        Task EditUser(User user);
     }
 }

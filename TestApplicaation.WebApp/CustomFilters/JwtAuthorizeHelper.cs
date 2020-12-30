@@ -78,7 +78,7 @@ namespace TestApplication.CustomFilters
             using var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var responseMessage = httpClient.GetAsync("http://localhost:5000/api/Auth/ActiveUser").Result;
+            var responseMessage = httpClient.GetAsync("https://localhost:5001/api/Auth/ActiveUser").Result;
 
             return JsonConvert.DeserializeObject<UserDto>(responseMessage.Content.ReadAsStringAsync().Result);
 

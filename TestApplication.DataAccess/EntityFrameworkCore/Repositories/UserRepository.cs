@@ -34,5 +34,35 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
 
             }).ToListAsync();
         }
+
+        public async Task EditUser(User user)
+        {
+            using var context = new DatabaseContext();
+            {
+                User updateUser = await context.User.Include(p => p.userUserTypes).FirstOrDefaultAsync(x => x.UserId == user.UserId);
+                if (updateUser != null)
+                {
+                    updateUser.Password = user.Password;
+                    updateUser.Name = user.Name;
+                    updateUser.Email = user.Email;
+                    updateUser.userUserTypes.Clear();
+
+                    if (user.userUserTypes.Count > 0)
+                    {
+                        foreach (var ust in user.userUserTypes)
+                        {
+                            updateUser.userUserTypes.Add(new UserUserType()
+                            {
+                                UserId = user.UserId,
+                                UserTypeId = ust.UserTypeId
+                            });
+                        }
+                    }
+
+                    context.User.Update(updateUser);
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
     }
 }

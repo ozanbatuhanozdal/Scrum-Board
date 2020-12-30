@@ -12,5 +12,6 @@ namespace TestApplication.BusinessLayer.Interfaces
         public Task<User> FindByEmail(string email);
         public Task<bool> CheckPassword(UserLoginDto userLoginDto);
         Task<List<UserType>> GetRolesByEmail(string email);
+        Task EditUser(User user);
     }
 }

@@ -111,7 +111,7 @@ namespace TestApplication.WebApp.Controllers
             model.userUserTypes = selectedTypeList.ToList();
 
             userUpdate = _mapper.Map<User>(model);
-            await _userManager.UpdateAsync(userUpdate);
+            await _userManager.EditUser(userUpdate);
             return RedirectToAction("Index");
             }
             return View(model);
