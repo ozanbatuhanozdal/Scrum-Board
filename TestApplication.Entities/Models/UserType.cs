@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TestApplication.Entities.Models
 {
+    //userType Entities
     public  class UserType
     {
         [Key, Required]

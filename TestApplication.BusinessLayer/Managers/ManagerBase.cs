@@ -8,6 +8,7 @@ using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
 
 namespace TestApplication.BusinessLayer.Managers
 {
+    //managerBase
     public class ManagerBase<TEntity> : IManagerBase<TEntity> where TEntity : class, new()
     {
         private readonly IRepositoryBase<TEntity> _repository;

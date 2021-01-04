@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestApplication.Common.Dto.CustomerCardDtos
 {
+    //customer card silme işleminde işimize yarayacak objeler
     public class CustomerCardDeleteDto
     {
         public int CustomerCardRowId { get; set; }

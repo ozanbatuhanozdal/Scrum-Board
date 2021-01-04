@@ -9,6 +9,7 @@ using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
 {
+    //RepositoryBase
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class, new()
     {
         public async Task AddAsync(TEntity entity)

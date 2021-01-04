@@ -9,6 +9,7 @@ using TestApplication.Entities.Models;
 
 namespace TestApplication.BusinessLayer.Managers
 {
+    //userTypeManager
     public class UserTypeManager : ManagerBase<UserType> , IUserTypeManager
     {
         private readonly IUserTypeRepository _userTypeRepository;

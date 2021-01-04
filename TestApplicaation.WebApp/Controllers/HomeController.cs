@@ -47,15 +47,15 @@ namespace TestApplication.WebApp.Controllers
 
             List<Customer> customers = await _customerManager.GetAllASync();
 
-            /*
-            customers.ForEach(x =>
-            {
-                customerCards.ForEach(y =>
-                {
-                    if (y.CustomerId == x.CustomerId)
-                        x.CustomerCards.Add(y);
-                });
-            });*/
+           
+            //customers.ForEach(x =>
+            //{
+              //  customerCards.ForEach(y =>
+               // {
+                //    if (y.CustomerId == x.CustomerId)
+                 //       x.CustomerCards.Add(y);
+              //  });
+           // });
             customerCards.ForEach(x =>
             {
                 customers.ForEach(y =>

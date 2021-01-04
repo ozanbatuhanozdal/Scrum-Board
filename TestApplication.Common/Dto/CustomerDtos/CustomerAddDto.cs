@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TestApplication.Common.Dto.CustomerDtos
 {
+    //customer ekleme işleminde işimize yarayacak objeler
     public class CustomerAddDto
     {
         [Required(ErrorMessage ="Name alanı boş geçilemez")]

@@ -11,7 +11,8 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
 {
     public class UserRepository : RepositoryBase<User> , IUserRepository
     {
-
+        //entity bazlı somut repository sınıflarımızdır.
+        //UserRepository
         public async Task<List<UserType>> GetRolesByEmail(string email)
         {
             using var context = new DatabaseContext();

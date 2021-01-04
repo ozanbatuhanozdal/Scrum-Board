@@ -7,6 +7,7 @@ using TestApplication.Entities.Models;
 
 namespace TestApplication.BusinessLayer.Interfaces
 {
+    //IUserTypeManager
     public interface IUserTypeManager : IManagerBase<UserType>
     {
     }

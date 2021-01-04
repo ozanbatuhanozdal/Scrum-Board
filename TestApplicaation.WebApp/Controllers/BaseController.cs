@@ -9,6 +9,7 @@ using TestApplication.WebApp.Models.Interfaces;
 
 namespace TestApplication.WebApp.Controllers
 {
+    //base controller
     public class BaseController : Controller
     {
 

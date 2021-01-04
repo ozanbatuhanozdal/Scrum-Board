@@ -4,6 +4,8 @@ using System.Text;
 
 namespace TestApplication.Common.Dto.BaseDto
 {
+    //BaseDto
+    //diğer dto sınıflarımız bu classtan kalıtılıcak
     public class BaseClassDto
     {
         public DateTime CreateDate { get; set; }

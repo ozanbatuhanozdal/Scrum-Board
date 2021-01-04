@@ -9,17 +9,23 @@ namespace TestApplication.DataAccess.Mapping
         public void Configure(EntityTypeBuilder<UserUserType> builder)
         {
             
-            
+            //userId,UserTypeId anahtar alan
             builder.HasKey(x => new { x.UserId, x.UserTypeId });
 
+            //userId boş geçilemez.
             builder.Property(x => x.UserId).IsRequired();
+            //usertype boş geçilemez.
             builder.Property(x => x.UserTypeId).IsRequired();
-
+            //bir kullanıcının birden fazla usertypeı olabilir.
             builder.HasOne(x => x.user).WithMany(x => x.userUserTypes).HasForeignKey(x => x.UserId);
+            
+            
             builder.HasOne(x => x.userType).WithMany(x => x.userUserTypes).HasForeignKey(x => x.UserTypeId);
                    
+            //kolon adı değiştirildi
             builder.Property(e => e.UserId).HasColumnName("UserId");
 
+            //kolon adı değiştirildi
             builder.Property(e => e.UserTypeId).HasColumnName("UserTypeId");
         }
     }

@@ -9,6 +9,7 @@ namespace TestApplication.Common.Dto.UserTypeDtos
 {
     public class UserTypeUpdateDto
     {
+        //data annotations
         public int UserTypeId { get; set; }
         [Required(ErrorMessage = "UserTypeName alanı boş geçilemez")]
         public string UserTypeName { get; set; }

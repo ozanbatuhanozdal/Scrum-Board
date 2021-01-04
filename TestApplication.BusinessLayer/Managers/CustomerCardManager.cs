@@ -9,7 +9,7 @@ namespace TestApplication.BusinessLayer.Managers
 {
     public class CustomerCardManager : ManagerBase<CustomerCard>  ,ICustomerCardManager
     {
-
+        //customerCardManager
         public CustomerCardManager(IRepositoryBase<CustomerCard> repository) : base(repository)
         {
 

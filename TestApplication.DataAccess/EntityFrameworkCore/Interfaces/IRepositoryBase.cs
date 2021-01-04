@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
 {
+    //IRepositorybase
     public interface IRepositoryBase<TEntity> where TEntity : class, new()
     {
         Task<List<TEntity>> GetAllASync();

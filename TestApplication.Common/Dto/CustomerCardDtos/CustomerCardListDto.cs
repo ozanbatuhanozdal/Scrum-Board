@@ -8,6 +8,7 @@ using TestApplication.Common.Dto.CustomerCardRowDtos;
 
 namespace TestApplication.Common.Dto.CustomerCardDtos
 {
+    //listeleme işleminde işimize yarayacak objeler
     public class CustomerCardListDto : BaseClassDto
     {
         public int CustomerCardId { get; set; }

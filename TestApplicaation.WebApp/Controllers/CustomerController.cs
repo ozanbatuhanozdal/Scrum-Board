@@ -13,7 +13,8 @@ using TestApplication.WebApp.Models.Interfaces;
 namespace TestApplication.WebApp.Controllers
 {
     public class CustomerController : BaseController
-    {      
+    {      //customer controller 
+        //create-delete-edit
 
         private readonly ICustomerManager _customerManager;
         private readonly IMapper _mapper;

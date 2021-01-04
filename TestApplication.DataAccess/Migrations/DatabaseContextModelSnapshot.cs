@@ -30,19 +30,32 @@ namespace TestApplication.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerCardId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CustomerCardId");
 
                     b.Property<string>("DeveloperName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Developer Name");
 
                     b.Property<string>("Explanation")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Explanation");
 
                     b.Property<DateTime>("FinishedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Priorty")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Priorty");
 
                     b.Property<int>("ProgressId")
                         .HasColumnType("int");
@@ -59,19 +72,31 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("CustomerId")
                         .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CustomerAddress")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("Customer Address");
 
                     b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Customer Name");
 
                     b.Property<string>("CustomerPhone")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(11)")
+                        .HasColumnName("Customer Phone");
 
                     b.HasKey("CustomerId");
 
@@ -83,6 +108,7 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int>("CustomerCardId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("CustomerCardId")
                         .UseIdentityColumn();
 
                     b.Property<double>("CostOfCardTime")
@@ -92,13 +118,21 @@ namespace TestApplication.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CustomerCardName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("CustomerCard Name");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductManagerName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("ProductManager Name");
 
                     b.HasKey("CustomerCardId");
 
@@ -112,21 +146,32 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("UserId")
                         .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("eMail");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Name");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("password");
 
                     b.HasKey("UserId");
 
@@ -136,7 +181,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2020, 12, 21, 14, 12, 54, 227, DateTimeKind.Local).AddTicks(9597),
+                            CreatedDate = new DateTime(2021, 1, 4, 16, 44, 46, 751, DateTimeKind.Local).AddTicks(4965),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -148,13 +193,22 @@ namespace TestApplication.DataAccess.Migrations
                     b.Property<int>("UserTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("userTypeId")
                         .UseIdentityColumn();
 
                     b.Property<string>("UserTypeDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("userTypeDescription");
 
                     b.Property<string>("UserTypeName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("userTypeName");
 
                     b.HasKey("UserTypeId");
 
@@ -171,23 +225,21 @@ namespace TestApplication.DataAccess.Migrations
 
             modelBuilder.Entity("TestApplication.Entities.Models.UserUserType", b =>
                 {
-                    b.Property<int>("UserUserTypeId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("UserTypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserTypeId");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserUserTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserUserTypeId");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId", "UserTypeId");
 
                     b.HasIndex("UserTypeId");
 
@@ -196,10 +248,10 @@ namespace TestApplication.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            UserUserTypeId = 1,
-                            CreatedDate = new DateTime(2020, 12, 21, 14, 12, 54, 228, DateTimeKind.Local).AddTicks(9218),
                             UserId = 1,
-                            UserTypeId = 1
+                            UserTypeId = 1,
+                            CreatedDate = new DateTime(2021, 1, 4, 16, 44, 46, 758, DateTimeKind.Local).AddTicks(8796),
+                            UserUserTypeId = 1
                         });
                 });
 

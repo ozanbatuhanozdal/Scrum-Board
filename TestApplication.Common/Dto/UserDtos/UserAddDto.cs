@@ -10,6 +10,8 @@ namespace TestApplication.Common.Dto.UserDtos
 {
     public class UserAddDto : BaseClassDto
     {
+        //user ekleme işleminde işimize yarayacak objeler
+        //data annotations
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Name alanı boş geçilemez")]

@@ -9,32 +9,32 @@ using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
 using TestApplication.Entities.Models;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
-{
+{//entity bazlı somut repository sınıflarımızdır.
     public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     {
-      /*
-        public async Task<List<Customer>> GetCustomerCards()
-        {
-            using var context = new DatabaseContext();
+      
+        //public async Task<List<Customer>> GetCustomerCards()
+       // {
+           // using var context = new DatabaseContext();
 
-            var customerCardList = await context.CustomerCard.Join(context.Customer, x => x.CustomerId, y => y.CustomerId, (customerCard, customer) => new
-            {
-                customerCard,
-                customer,
-            }).Join(context.CustomerCardRow, two => two.customerCard.CustomerCardId, ccr => ccr.CustomerCardRowId, (twoTable, customerCardRow) => new
-            {
-                twoTable.customerCard,
-                twoTable.customer,
-                customerCardRow
-            }).Select(x => new Customer
-            {
-                CustomerName = x.customer.CustomerName,
-                CustomerPhone = x.customer.CustomerPhone,               
+          //  var customerCardList = await context.CustomerCard.Join(context.Customer, x => x.CustomerId, y => y.CustomerId, (customerCard, customer) => new
+           // {
+           //     customerCard,
+            //    customer,
+          //  }).Join(context.CustomerCardRow, two => two.customerCard.CustomerCardId, ccr => ccr.CustomerCardRowId, (twoTable, customerCardRow) => new
+           // {
+           //     twoTable.customerCard,
+             //   twoTable.customer,
+           //     customerCardRow
+           // }).Select(x => new Customer
+           // {
+            //    CustomerName = x.customer.CustomerName,
+            //    CustomerPhone = x.customer.CustomerPhone,               
 
-            }).ToListAsync();
+           // }).ToListAsync();
 
-            return customerCardList;
-         */
+        //    return customerCardList;
+         
         }
     }
 

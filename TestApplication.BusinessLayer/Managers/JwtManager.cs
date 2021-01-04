@@ -14,6 +14,7 @@ namespace TestApplication.BusinessLayer.Managers
 {
     public class JwtManager : IJwtManager
     {
+        //JWtManager
         public string TokenCreate(User user, List<UserType> userType)
         {
             var bytes = Encoding.UTF8.GetBytes(JwtInfo.SecretKey);

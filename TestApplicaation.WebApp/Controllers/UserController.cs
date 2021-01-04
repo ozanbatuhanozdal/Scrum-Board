@@ -13,6 +13,7 @@ using TestApplication.WebApp.Models.Interfaces;
 
 namespace TestApplication.WebApp.Controllers
 {
+    //UserController
     public class UserController : BaseController
     {
 
@@ -34,7 +35,7 @@ namespace TestApplication.WebApp.Controllers
             List<UserListDto> userListDto = _mapper.Map<List<UserListDto>>(users);
             return View(userListDto);
         }
-
+        //creata get
         public async  Task<IActionResult> Create()
         {
             // ViewBag.UserId = new SelectList(await _userManager.)
@@ -71,7 +72,7 @@ namespace TestApplication.WebApp.Controllers
             return View(model);                           
         }
 
-
+        //edit get
         public async Task<IActionResult> Edit(int id)
         {
             User user =  await _userManager.FindById(id);
@@ -116,7 +117,7 @@ namespace TestApplication.WebApp.Controllers
             }
             return View(model);
         }
-
+        //delete get
         public async Task<IActionResult> Delete(int id)
         {
             User user = await _userManager.FindById(id);

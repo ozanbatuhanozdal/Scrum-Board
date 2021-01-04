@@ -11,6 +11,7 @@ using TestApplication.WebApp.Models.Interfaces;
 
 namespace TestApplication.WebApp.Controllers
 {
+    //userTypeController
     public class UserTypeController : BaseController
     {
         private readonly IUserTypeManager _userTypeManager;

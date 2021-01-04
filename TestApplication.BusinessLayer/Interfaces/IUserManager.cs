@@ -7,6 +7,7 @@ using TestApplication.Entities.Models;
 
 namespace TestApplication.BusinessLayer.Interfaces
 {
+    //IUserManager
     public interface IUserManager : IManagerBase<User>
     {
         public Task<User> FindByEmail(string email);

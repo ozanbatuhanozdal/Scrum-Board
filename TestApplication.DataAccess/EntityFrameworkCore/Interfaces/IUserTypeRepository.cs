@@ -7,6 +7,7 @@ using TestApplication.Entities.Models;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
 {
+    //IUserTypeRepository
     public interface IUserTypeRepository : IRepositoryBase<UserType>
     {
     }

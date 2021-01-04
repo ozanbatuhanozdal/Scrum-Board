@@ -10,6 +10,7 @@ namespace TestApplication.BusinessLayer.Managers
 {
     public class CustomerCardRowManager : ManagerBase<CustomerCardRow> ,ICustomerCardRowManager
     {
+        //customerCardRowManager
         public CustomerCardRowManager(IRepositoryBase<CustomerCardRow> repositoryBase) :base(repositoryBase)
         {
 

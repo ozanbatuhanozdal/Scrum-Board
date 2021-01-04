@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TestApplication.DataAccess.Mapping;
 using TestApplication.Entities;
 using TestApplication.Entities.Models;
 
@@ -25,15 +26,28 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            
+            //update-database
+            //connection stringini ekleyip diğerlerini yorum satırı haline getiriniz.
+            //update-database -- TestApplication-DataAccess
             // Batuhan Connection String
-           optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
+           //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
             //Deniz Connection String
-         //   optionsBuilder.UseSqlServer("Server=ASUS\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=ASUS\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
         }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //mapping claslarımızı dahil ediyoruz.
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new UserTypeMap());
+            modelBuilder.ApplyConfiguration(new UserUserTypeMap());
+            modelBuilder.ApplyConfiguration(new CustomerMap());
+            modelBuilder.ApplyConfiguration(new CustomerCardMap());
+            modelBuilder.ApplyConfiguration(new CustomerCardRowMap());
+
+           //hazır bir usertype
             UserType UserTypes = new()
             {
                 UserTypeId = 1,
@@ -43,6 +57,7 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
 
             modelBuilder.Entity<UserType>().HasData(UserTypes);
 
+            //hazır bir kullanıcı
             User users = new()
             {
                 UserId = 1,
@@ -53,6 +68,9 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
                 
            modelBuilder.Entity<User>().HasData(users);
 
+
+            //belirtilen varlığa geçişler için çekirdek verileri sağlamaya 
+            //yardımcı olmak için tasarlanmıştır.
             modelBuilder.Entity<UserUserType>().HasData(new UserUserType { UserUserTypeId = 1, UserId=1 ,UserTypeId =1 });
         }
 

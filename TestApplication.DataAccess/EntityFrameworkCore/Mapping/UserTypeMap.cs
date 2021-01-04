@@ -8,13 +8,22 @@ namespace TestApplication.DataAccess.Mapping
     {
         public void Configure(EntityTypeBuilder<UserType> builder)
         {
+            //USertypeID kolon adı değiştirildi.
             builder.Property(e => e.UserTypeId).HasColumnName("userTypeId");
 
+            //userTypeDescription boş geçilemez.
+            //kolon adı .userTypeDescription
+            //max 200
             builder.Property(e => e.UserTypeDescription)
                 .IsRequired()
                 .HasColumnName("userTypeDescription")
                 .HasMaxLength(200)
                 .IsUnicode(false);
+
+
+            //userTypeName boş geçilemez
+            //kolon adı userTypeName
+            //max50
 
             builder.Property(e => e.UserTypeName)
                 .IsRequired()

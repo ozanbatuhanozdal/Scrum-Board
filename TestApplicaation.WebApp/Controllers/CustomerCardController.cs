@@ -17,6 +17,7 @@ using TestApplication.WebApp.Models.Interfaces;
 
 namespace TestApplication.WebApp.Controllers
 {
+    //customrCardController
     public class CustomerCardController : BaseController
     {
 
@@ -188,31 +189,29 @@ namespace TestApplication.WebApp.Controllers
     }
 }
 
-/*
- * 
- * public ActionResult CreateMultiple()
-{
-    return View();
-}
+ 
+ // public ActionResult CreateMultiple()
+//{
+//    return View();
+//}
 
-public JsonResult SaveData(string getepassdata)//WebMethod to Save the data  
-{
-    try
-    {
-        var serializeData = JsonConvert.DeserializeObject<List<GatePass>>(getepassdata);
+//public JsonResult SaveData(string getepassdata)//WebMethod to Save the data  
+//{
+   // try
+   // {
+    //    var serializeData = JsonConvert.DeserializeObject<List<GatePass>>(getepassdata);
 
-        foreach (var data in serializeData)
-        {
-            db.GatePasses.Add(data);
-        }
+     //   foreach (var data in serializeData)
+      //  {
+       //     db.GatePasses.Add(data);
+      //  }
 
-        db.SaveChanges();
-    }
-    catch (Exception)
-    {
-        return Json("fail");
-    }
+    //    db.SaveChanges();
+   // }
+  //  catch (Exception)
+   // {
+  //      return Json("fail");
+  //  }
 
-    return Json("success");
-}
-*/
+  //  return Json("success");
+//}

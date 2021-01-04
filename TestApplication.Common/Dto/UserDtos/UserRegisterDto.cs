@@ -6,8 +6,9 @@ using TestApplication.Common.Dto.BaseDto;
 
 namespace TestApplication.Common.Dto.UserDtos
 {
+    //registerDto
     public class UserRegisterDto:BaseClassDto
-    {
+    { //user kayıt işleminde işimize yarayacak objeler
         [Required(ErrorMessage = "Name alanı boş geçilemez")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Email alanı boş geçilemez")]

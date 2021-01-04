@@ -6,6 +6,7 @@ namespace TestApplication.Common.Dto.UserDtos
 {
     public class UserListDto
     {
+        //user listeleme işleminde işimize yarayacak objeler
         public int UserId { get; set; }
         public string Name { get; set; }        
         public string Email { get; set; }

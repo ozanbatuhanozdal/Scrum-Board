@@ -6,7 +6,7 @@ using TestApplication.Common.Dto.UserTypeDtos;
 namespace TestApplication.Common.Dto.UserDtos
 {
     public class UserUpdateDto
-    {
+    {//user güncelleme işlemi için gerekli objeler
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string UserSurname { get; set; }

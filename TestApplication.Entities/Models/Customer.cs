@@ -8,6 +8,8 @@ namespace TestApplication.Entities.Models
 {
     public class Customer : EntityBase
     {
+        //anahtar alan 
+        //boş geçilemez
         [Key, Required]
         public int CustomerId { get; set; }
 

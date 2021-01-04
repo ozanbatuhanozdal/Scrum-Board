@@ -17,7 +17,7 @@ using Xunit;
 
 namespace TestApplication.Test
 {
-
+    //customer controller test
     public class CustomerControllerTest
     {
         
@@ -25,6 +25,7 @@ namespace TestApplication.Test
         private  Mock<IMapper> _mockAutoMapper;
         private  Mock<ILoggedUserProvider> _mockLoggedUserProvider;
         
+        //test edeceğimi controller customer controllerdır.
         private  CustomerController _customerController;
 
 
@@ -33,11 +34,13 @@ namespace TestApplication.Test
         private List<CustomerAddDto> customerAddDtos;
         public CustomerControllerTest()
         {
+            //const. ınitial ediyoruz.
             _mockCustomerManager = new Mock<ICustomerManager>();
             _mockAutoMapper = new Mock<IMapper>();
             _mockLoggedUserProvider = new Mock<ILoggedUserProvider>();
+            //customer controllerı mockladık.
             _customerController = new CustomerController(_mockCustomerManager.Object, _mockAutoMapper.Object, _mockLoggedUserProvider.Object);
-
+            //customer olusturuyoruz
             customers = new List<Customer>() { new Customer
             {
                 CustomerId = 1,
@@ -68,17 +71,18 @@ namespace TestApplication.Test
 
         }
 
-        
+        //isimlendirme kuralına göre
+        //test edilen metot-Action'ın çalışma durumunu test ediliyor-geriye view dönmesini bekliyoruz.
 
         [Fact]
         public async void Index_ActionExecute_ReturnView()
         {
             var result = await _customerController.Index();
-
+            // gelen result ın ViewResult  olup olmadığını test ediyoruz. 
             Assert.IsType<ViewResult>(result);
 
         }
-
+        //index metodumuzun geriye bir list dönüp dönmediğini test ediyoruz.
         [Fact]
         public async void Index_ActionExecute_ReturnCustomerList()
         {
@@ -90,6 +94,7 @@ namespace TestApplication.Test
             Assert.Equal<int>(2, customers.Count());
         }
 
+        //create view test
         [Fact]
         public  void Create_ActionExecute_ReturnView()
         {
@@ -98,6 +103,10 @@ namespace TestApplication.Test
             Assert.IsType<ViewResult>(result);
 
         }
+
+
+        //create metodunun post edilmesi durumunu test ediyoruz.
+        //hata verdiğimiz zaman ındexe yönelmek yerine aynı sayfaya yöneliyor mu onu test ediyoruz.
         [Fact]
         public async void Create_InvalidModelState_ReturnView()
         {

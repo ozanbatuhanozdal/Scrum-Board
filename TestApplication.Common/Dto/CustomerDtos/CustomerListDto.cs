@@ -9,6 +9,7 @@ namespace TestApplication.Common.Dto.CustomerDtos
 {
     public class CustomerListDto
     {
+        //customer listeleme işleminde işimize yaracak objeler
         public int CustomerId { get; set; }
 
         public string CustomerName { get; set; }

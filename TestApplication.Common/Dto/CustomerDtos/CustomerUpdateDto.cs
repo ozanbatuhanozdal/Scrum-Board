@@ -9,6 +9,7 @@ namespace TestApplication.Common.Dto.CustomerDtos
 {
     public class CustomerUpdateDto
     {
+        //customer update işleminde işimize yarayacak objeler
         public int CustomerId { get; set; }
 
         [Required(ErrorMessage = "Name alanı boş geçilemez")]
@@ -20,5 +21,6 @@ namespace TestApplication.Common.Dto.CustomerDtos
         [Required(ErrorMessage = "Adress alanı boş geçilemez")]
 
         public string CustomerAddress { get; set; }
+        //data annotations
     }
 }

@@ -8,6 +8,7 @@ namespace TestApplication.Common.Dto.CustomerDtos
 {
     public class CustomerDeleteDto
     {
+        //customer silme işleminde işimize yarayacak objeler
         public int CustomerId { get; set; }
 
         public string CustomerName { get; set; }

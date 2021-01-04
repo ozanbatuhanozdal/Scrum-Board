@@ -6,15 +6,17 @@ using TestApplication.Entities.Models.Base;
 
 namespace TestApplication.Entities.Models
 {
+    //user Entities
     public class User : EntityBase
     {
         [Key,Required]
         public int UserId { get; set; }
 
         public string Email { get; set; }
-
+        //name boş geçilemez
         [Required]
         public string Name { get; set; }
+        //password boş geçilemez
         [Required]
         public string Password { get; set; }
         

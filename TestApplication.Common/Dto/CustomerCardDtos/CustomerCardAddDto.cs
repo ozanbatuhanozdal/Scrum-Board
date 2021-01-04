@@ -8,6 +8,7 @@ using TestApplication.Common.Dto.CustomerCardRowDtos;
 
 namespace TestApplication.Common.Dto.CustomerCardDtos
 {
+    //Customercard ekleme işleminde işimize yarayacak objeler
     public class CustomerCardAddDto : BaseClassDto
     {
         public int UserId { get; set; }

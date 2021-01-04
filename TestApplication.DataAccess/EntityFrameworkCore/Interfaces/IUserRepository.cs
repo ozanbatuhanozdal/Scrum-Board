@@ -6,6 +6,7 @@ using TestApplication.Entities.Models;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
 {
+    //IUserRepository
     public interface IUserRepository : IRepositoryBase<User>
     {
         Task<List<UserType>> GetRolesByEmail(string email);

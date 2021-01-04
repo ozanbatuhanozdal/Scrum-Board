@@ -11,6 +11,7 @@ using TestApplication.Entities.Models;
 
 namespace TestApplication.BusinessLayer.Managers
 {
+    //UserManager
     public class UserManager : ManagerBase<User>, IUserManager
     {
         private readonly IUserRepository _userRepository;

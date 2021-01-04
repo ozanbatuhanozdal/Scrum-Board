@@ -10,6 +10,7 @@ using TestApplication.Common.Token;
 
 namespace TestApplication.WebApp.Controllers.api
 {
+    //api controller
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase

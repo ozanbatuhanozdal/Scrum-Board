@@ -5,6 +5,7 @@ using TestApplication.Entities;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
 {
+    //IcustomerCardRowRepositroy
     public interface ICustomerCardRowRepository : IRepositoryBase<CustomerCardRow>
     {
     }

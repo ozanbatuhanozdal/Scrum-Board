@@ -51,7 +51,7 @@
                                 <tr>
                                     <th>User Type Name</th>
                                     <th>User Type Description</th>                                    
-                                    <th>Detail/Edit/Delete</th>
+                                    <th>Edit/Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,7 +61,7 @@
                                         <td>@userType.UserTypeName</td>
                                         <td>@userType.UserTypeDescription</td>                                        
                                         <td>
-                                            <a href="@Url.Action("Detail", "UserType", new { id = userType.UserTypeId })" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                           
                                             <a href="@Url.Action("Edit", "UserType", new { id = userType.UserTypeId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
                                             <a href="@Url.Action("Delete", "UserType", new { id = userType.UserTypeId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
 
