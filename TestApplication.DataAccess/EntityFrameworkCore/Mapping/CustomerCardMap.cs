@@ -23,7 +23,7 @@ namespace TestApplication.DataAccess.Mapping
             //CustomerNAme uzunluğu maksimum uzunluğu 200
             builder.Property(x => x.CustomerCardName)
                 .IsRequired()
-                .HasColumnName("CustomerCard Name")
+                .HasColumnName("CustomerCardName")
                 .HasMaxLength(200)
                 .IsUnicode(false);
 
@@ -33,7 +33,7 @@ namespace TestApplication.DataAccess.Mapping
             builder.Property(x => x.ProductManagerName)
                 .IsRequired()
                 .HasMaxLength(200)
-                .HasColumnName("ProductManager Name")
+                .HasColumnName("ProductManagerName")
                 .IsUnicode(false);
 
             

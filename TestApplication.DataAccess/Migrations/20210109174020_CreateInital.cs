@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplication.DataAccess.Migrations
 {
-    public partial class CreateInitial : Migration
+    public partial class CreateInital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,9 +13,9 @@ namespace TestApplication.DataAccess.Migrations
                 {
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(name: "Customer Name", type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
-                    CustomerPhone = table.Column<string>(name: "Customer Phone", type: "varchar(11)", unicode: false, maxLength: 11, nullable: false),
-                    CustomerAddress = table.Column<string>(name: "Customer Address", type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    CustomerName = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
+                    CustomerPhone = table.Column<string>(type: "varchar(11)", unicode: false, maxLength: 11, nullable: false),
+                    CustomerAddress = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -59,8 +59,8 @@ namespace TestApplication.DataAccess.Migrations
                 {
                     CustomerCardId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerCardName = table.Column<string>(name: "CustomerCard Name", type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
-                    ProductManagerName = table.Column<string>(name: "ProductManager Name", type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
+                    CustomerCardName = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
+                    ProductManagerName = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
                     CostOfCardTime = table.Column<double>(type: "float", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -109,7 +109,7 @@ namespace TestApplication.DataAccess.Migrations
                     CustomerCardRowId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerCardId = table.Column<int>(type: "int", nullable: false),
-                    DeveloperName = table.Column<string>(name: "Developer Name", type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
+                    DeveloperName = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
                     Priorty = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
                     FinishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProgressId = table.Column<int>(type: "int", nullable: false),
@@ -130,7 +130,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "CreatedDate", "eMail", "Name", "password" },
-                values: new object[] { 1, new DateTime(2021, 1, 4, 16, 44, 46, 751, DateTimeKind.Local).AddTicks(4965), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
+                values: new object[] { 1, new DateTime(2021, 1, 9, 20, 40, 18, 921, DateTimeKind.Local).AddTicks(8797), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
 
             migrationBuilder.InsertData(
                 table: "UserType",
@@ -140,7 +140,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "userUserTypes",
                 columns: new[] { "UserId", "UserTypeId", "CreatedDate", "UserUserTypeId" },
-                values: new object[] { 1, 1, new DateTime(2021, 1, 4, 16, 44, 46, 758, DateTimeKind.Local).AddTicks(8796), 1 });
+                values: new object[] { 1, 1, new DateTime(2021, 1, 9, 20, 40, 18, 925, DateTimeKind.Local).AddTicks(1568), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerCard_CustomerId",

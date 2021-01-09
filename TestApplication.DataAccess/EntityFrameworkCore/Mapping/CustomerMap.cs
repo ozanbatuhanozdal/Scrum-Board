@@ -19,7 +19,7 @@ namespace TestApplication.DataAccess.Mapping
             //maksimum uzunluğu 200
             builder.Property(x => x.CustomerName)
                 .IsRequired()
-                .HasColumnName("Customer Name")
+                .HasColumnName("CustomerName")
                 .HasMaxLength(200)
                 .IsUnicode(false);
 
@@ -28,7 +28,7 @@ namespace TestApplication.DataAccess.Mapping
             //maksimum uzunluğu 200
             builder.Property(x => x.CustomerPhone)
                 .IsRequired()
-                .HasColumnName("Customer Phone")
+                .HasColumnName("CustomerPhone")
                 .HasMaxLength(11).IsUnicode(false);
 
 
@@ -37,7 +37,7 @@ namespace TestApplication.DataAccess.Mapping
             //maksimum uzunluğu 200
             builder.Property(x => x.CustomerAddress)
                 .IsRequired()
-                .HasColumnName("Customer Address")
+                .HasColumnName("CustomerAddress")
                 .HasMaxLength(200);
 
 

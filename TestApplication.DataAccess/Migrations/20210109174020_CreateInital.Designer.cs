@@ -10,8 +10,8 @@ using TestApplication.DataAccess.EntityFrameworkCore;
 namespace TestApplication.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210104134448_CreateInitial")]
-    partial class CreateInitial
+    [Migration("20210109174020_CreateInital")]
+    partial class CreateInital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace TestApplication.DataAccess.Migrations
                         .HasMaxLength(200)
                         .IsUnicode(false)
                         .HasColumnType("varchar(200)")
-                        .HasColumnName("Developer Name");
+                        .HasColumnName("DeveloperName");
 
                     b.Property<string>("Explanation")
                         .IsRequired()
@@ -84,21 +84,21 @@ namespace TestApplication.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
-                        .HasColumnName("Customer Address");
+                        .HasColumnName("CustomerAddress");
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasMaxLength(200)
                         .IsUnicode(false)
                         .HasColumnType("varchar(200)")
-                        .HasColumnName("Customer Name");
+                        .HasColumnName("CustomerName");
 
                     b.Property<string>("CustomerPhone")
                         .IsRequired()
                         .HasMaxLength(11)
                         .IsUnicode(false)
                         .HasColumnType("varchar(11)")
-                        .HasColumnName("Customer Phone");
+                        .HasColumnName("CustomerPhone");
 
                     b.HasKey("CustomerId");
 
@@ -124,7 +124,7 @@ namespace TestApplication.DataAccess.Migrations
                         .HasMaxLength(200)
                         .IsUnicode(false)
                         .HasColumnType("varchar(200)")
-                        .HasColumnName("CustomerCard Name");
+                        .HasColumnName("CustomerCardName");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -134,7 +134,7 @@ namespace TestApplication.DataAccess.Migrations
                         .HasMaxLength(200)
                         .IsUnicode(false)
                         .HasColumnType("varchar(200)")
-                        .HasColumnName("ProductManager Name");
+                        .HasColumnName("ProductManagerName");
 
                     b.HasKey("CustomerCardId");
 
@@ -183,7 +183,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2021, 1, 4, 16, 44, 46, 751, DateTimeKind.Local).AddTicks(4965),
+                            CreatedDate = new DateTime(2021, 1, 9, 20, 40, 18, 921, DateTimeKind.Local).AddTicks(8797),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -252,7 +252,7 @@ namespace TestApplication.DataAccess.Migrations
                         {
                             UserId = 1,
                             UserTypeId = 1,
-                            CreatedDate = new DateTime(2021, 1, 4, 16, 44, 46, 758, DateTimeKind.Local).AddTicks(8796),
+                            CreatedDate = new DateTime(2021, 1, 9, 20, 40, 18, 925, DateTimeKind.Local).AddTicks(1568),
                             UserUserTypeId = 1
                         });
                 });

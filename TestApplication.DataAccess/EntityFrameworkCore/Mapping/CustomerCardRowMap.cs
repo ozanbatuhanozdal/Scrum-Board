@@ -22,7 +22,7 @@ namespace TestApplication.DataAccess.Mapping
             //Kolon adı Developer Name
             builder.Property(x => x.DeveloperName)
                 .IsRequired()
-                .HasColumnName("Developer Name")
+                .HasColumnName("DeveloperName")
                 .HasMaxLength(200)
                 .IsUnicode(false);
 
