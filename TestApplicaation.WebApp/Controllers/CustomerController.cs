@@ -44,7 +44,7 @@ namespace TestApplication.WebApp.Controllers
                 
                 Customer customer = _mapper.Map<Customer>(model);
                
-                await _customerManager.AddAsync(customer);
+                await _customerManager.AddCustomer(customer);
                 return RedirectToAction("Index");
             }
             else

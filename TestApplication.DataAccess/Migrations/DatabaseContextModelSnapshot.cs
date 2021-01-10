@@ -181,7 +181,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2021, 1, 9, 20, 40, 18, 921, DateTimeKind.Local).AddTicks(8797),
+                            CreatedDate = new DateTime(2021, 1, 10, 22, 31, 41, 235, DateTimeKind.Local).AddTicks(8090),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -250,7 +250,7 @@ namespace TestApplication.DataAccess.Migrations
                         {
                             UserId = 1,
                             UserTypeId = 1,
-                            CreatedDate = new DateTime(2021, 1, 9, 20, 40, 18, 925, DateTimeKind.Local).AddTicks(1568),
+                            CreatedDate = new DateTime(2021, 1, 10, 22, 31, 41, 236, DateTimeKind.Local).AddTicks(7447),
                             UserUserTypeId = 1
                         });
                 });

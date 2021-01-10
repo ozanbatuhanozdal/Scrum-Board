@@ -31,9 +31,9 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
             //connection stringini ekleyip diğerlerini yorum satırı haline getiriniz.
             //update-database -- TestApplication-DataAccess
             // Batuhan Connection String
-           //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
+           optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
             //Deniz Connection String
-            optionsBuilder.UseSqlServer("Server=ASUS\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
+           // optionsBuilder.UseSqlServer("Server=ASUS\\SQLEXPRESS;Database=DevelopmentPath;Trusted_Connection=True;");
         }
 
 
