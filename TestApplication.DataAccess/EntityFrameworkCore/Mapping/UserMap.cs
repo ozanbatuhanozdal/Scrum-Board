@@ -26,12 +26,7 @@ namespace TestApplication.DataAccess.Mapping
 
             //password alanı boş geçilemez.
             //kolon adı password
-            //maksimum uzunluk 200
-            builder.Property(e => e.Password)
-                .IsRequired()
-                .HasColumnName("password")
-                .HasMaxLength(200)
-                .IsUnicode(false);
+            //maksimum uzunluk 200         
 
 
             //Name alanı boş geçilemez

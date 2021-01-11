@@ -4,6 +4,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TestApplication.BusinessLayer.Interfaces;
@@ -40,25 +41,31 @@ namespace TestApplication.Test
             _mockLoggedUser = new Mock<ILoggedUserProvider>();
             //product controllerı mockladık.
             _userController = new UserController(_mockLoggedUser.Object , _mockUserManager.Object, _mockUserTypeManager.Object, _mockMapper.Object);
+
+            using var hmac = new HMACSHA512();
+
             UsersList = new List<User>() { new User {
                 //ornek user ekleme
                 UserId=15,
                 Name="denemeTest",
                 Email="denemeTest@hotmail.com",
-                Password="123deneme",
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("123")),
+                PasswordSalt = hmac.Key,
                 CreatedDate=DateTime.Now
             } ,new User{
                   UserId=17,
                 Name="denemeKullanıcı",
                 Email="denemeKullanıcı@hotmail.com",
-                Password="123",
+                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("123")),
+                PasswordSalt = hmac.Key,
                 CreatedDate=DateTime.Now
 
             },new User{
                   UserId=16,
                 Name="test3",
                 Email="test3@hotmail.com",
-                Password="147",
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("123")),
+                PasswordSalt = hmac.Key,
                 CreatedDate=DateTime.Now
             } };
             userAddDto = new List<UserAddDto>() { new UserAddDto

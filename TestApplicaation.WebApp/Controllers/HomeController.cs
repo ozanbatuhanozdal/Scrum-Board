@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TestApplicaation.WebApp.Models;
@@ -142,7 +143,10 @@ namespace TestApplication.WebApp.Controllers
                 User addUser = _mapper.Map<User>(userRegisterDto);
                 List<UserUserType> userUserType = new List<UserUserType>();
                 userUserType.Add(new UserUserType() { UserId = addUser.UserId, UserTypeId = 1 });
-
+                using var hmac = new HMACSHA512();
+                addUser.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userRegisterDto.Password));
+                addUser.PasswordSalt = hmac.Key;
+                addUser.Guid = Guid.NewGuid().ToString();
                 addUser.userUserTypes = userUserType;
                 await _userManager.AddAsync(addUser);
                 return RedirectToAction("Login");

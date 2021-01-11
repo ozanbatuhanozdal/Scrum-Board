@@ -18,8 +18,12 @@ namespace TestApplication.Entities.Models
         public string Name { get; set; }
         //password boş geçilemez
         [Required]
-        public string Password { get; set; }
-        
+        public byte[] PasswordHash { get; set; }
+
+        public byte[] PasswordSalt { get; set; }
+
+        public string Guid { get; set; }
+
 
         public virtual IList<UserUserType> userUserTypes { get; set; }
     }

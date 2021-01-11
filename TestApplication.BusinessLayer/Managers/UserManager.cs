@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TestApplication.BusinessLayer.Interfaces;
@@ -23,14 +24,22 @@ namespace TestApplication.BusinessLayer.Managers
         }
 
 
+      
         public async Task<bool> CheckPassword(UserLoginDto userLoginDto)
         {
             var user = await _userRepository.GetAsync(x => x.Email == userLoginDto.Email);
-            return user.Password == userLoginDto.Password ? true : false;
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userLoginDto.Password));
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != user.PasswordHash[i])
+                    return false;
+            }          
+            return true;
 
 
         }
-
+      
         public async Task<List<UserFullView>> GetUsersFull()
         {
             return await _userRepository.GetUsersFull();

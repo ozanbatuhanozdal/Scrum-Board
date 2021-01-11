@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using TestApplication.BusinessLayer.Interfaces;
 using TestApplication.Common.Dto.UserDtos;
@@ -31,10 +33,8 @@ namespace TestApplication.WebApp.Controllers
         }
 
         public async  Task<IActionResult> Index()
-        {
-            List<User> users = await _userManager.GetAllASync();
-            List<UserListDto> userListDto = _mapper.Map<List<UserListDto>>(users);
-            List<UserFullView> user = await _userManager.GetUsersFull();
+        {            
+            List<UserFullView> user = await _userManager.GetUsersFull();            
             return View(user);
         }
         //creata get
@@ -62,6 +62,9 @@ namespace TestApplication.WebApp.Controllers
                     model.userUserTypes = selected.ToList();
 
                     User userAdd = _mapper.Map<User>(model);
+                    using var hmac = new HMACSHA512();
+                    userAdd.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
+                    userAdd.PasswordSalt = hmac.Key;
                     await _userManager.AddAsync(userAdd);
                     return RedirectToAction("Index");
                 }
@@ -84,6 +87,7 @@ namespace TestApplication.WebApp.Controllers
 
             List<UserTypeDto> userTypeDto = _mapper.Map<List<UserTypeDto>>(userTypeList);
             List<UserTypeDto> userTypesDs = _mapper.Map<List<UserTypeDto>>(userTypes);
+
             userTypesDs.ForEach(x =>
             {
                 userTypeList.ForEach(y =>
@@ -94,28 +98,46 @@ namespace TestApplication.WebApp.Controllers
                     }
                 });
             });
-            UserAddDto userUpdate = _mapper.Map<UserAddDto>(user);
-            
-            
-            
+            UserUpdateDto userUpdate = _mapper.Map<UserUpdateDto>(user);
+         
             userUpdate.userUserTypes = userTypesDs;
 
             return View(userUpdate);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserAddDto model)
+        public async Task<IActionResult> Edit(UserUpdateDto model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+              
+                User userUpdate = await _userManager.FindById(model.UserId);
+                var password = userUpdate.PasswordHash;
+                var passwordSalt = userUpdate.PasswordSalt;
+                var selectedTypeList = model.userUserTypes.Where(x => x.Selected == true);
+                model.userUserTypes = selectedTypeList.ToList();
+                                
 
-            User userUpdate = await _userManager.FindById(model.UserId);
-            var selectedTypeList = model.userUserTypes.Where(x => x.Selected == true);
-            model.userUserTypes = selectedTypeList.ToList();
+                if (model.PasswordHash != "System.Byte[]")
+                {
+                    using var hmac = new HMACSHA512();
+                    userUpdate.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.PasswordHash));
+                    userUpdate.PasswordSalt = hmac.Key;
+                }
+                else
+                {
+                    userUpdate.PasswordHash = password;
+                    userUpdate.PasswordSalt = passwordSalt;
 
-            userUpdate = _mapper.Map<User>(model);
-            await _userManager.EditUser(userUpdate);
-            return RedirectToAction("Index");
+                }
+                   
+                
+                 List<UserUserType> userType = _mapper.Map<List<UserUserType>>(model.userUserTypes);
+                 userUpdate.Name = model.Name;
+                 userUpdate.Email = model.Email;
+                 userUpdate.userUserTypes = userType;
+                 await _userManager.EditUser(userUpdate);
+                 return RedirectToAction("Index");
             }
             return View(model);
         }

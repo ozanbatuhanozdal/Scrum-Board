@@ -10,8 +10,9 @@ namespace TestApplication.DataAccess.Mapping
         {
             
             //userId,UserTypeId anahtar alan
-            builder.HasKey(x => new { x.UserId, x.UserTypeId });
+            builder.HasKey(x => x.UserUserTypeId);
 
+            builder.Property(x => x.UserUserTypeId).ValueGeneratedOnAdd();
             //userId boş geçilemez.
             builder.Property(x => x.UserId).IsRequired();
             //usertype boş geçilemez.

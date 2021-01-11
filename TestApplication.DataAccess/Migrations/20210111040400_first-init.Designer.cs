@@ -10,7 +10,7 @@ using TestApplication.DataAccess.EntityFrameworkCore;
 namespace TestApplication.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210111004036_first-init")]
+    [Migration("20210111040400_first-init")]
     partial class firstinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -161,6 +161,9 @@ namespace TestApplication.DataAccess.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("eMail");
 
+                    b.Property<string>("Guid")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -168,12 +171,12 @@ namespace TestApplication.DataAccess.Migrations
                         .HasColumnType("varchar(200)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(200)")
-                        .HasColumnName("password");
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("UserId");
 
@@ -183,10 +186,12 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2021, 1, 11, 3, 40, 36, 166, DateTimeKind.Local).AddTicks(5539),
+                            CreatedDate = new DateTime(2021, 1, 11, 7, 4, 0, 164, DateTimeKind.Local).AddTicks(9455),
                             Email = "ozanbatuhanozdal@hotmail.com",
+                            Guid = "e15bddf8-c087-4ca9-b7ea-5b6bfa6408e8",
                             Name = "Batuhan",
-                            Password = "123"
+                            PasswordHash = new byte[] { 156, 8, 27, 62, 92, 139, 243, 29, 169, 69, 253, 195, 115, 179, 188, 122, 100, 161, 64, 55, 204, 157, 113, 24, 38, 50, 46, 245, 255, 166, 15, 161, 50, 125, 201, 94, 154, 109, 70, 20, 160, 31, 180, 136, 37, 83, 43, 228, 48, 78, 40, 76, 131, 195, 243, 141, 201, 112, 243, 151, 166, 39, 83, 9 },
+                            PasswordSalt = new byte[] { 164, 11, 55, 81, 215, 216, 114, 249, 112, 44, 201, 7, 204, 93, 213, 216, 67, 155, 107, 42, 105, 243, 67, 193, 235, 120, 230, 226, 36, 154, 10, 193, 57, 42, 162, 73, 62, 86, 202, 221, 118, 214, 145, 78, 153, 91, 222, 93, 193, 254, 21, 225, 244, 30, 122, 56, 23, 109, 80, 246, 213, 71, 74, 98, 55, 183, 228, 162, 48, 155, 25, 90, 154, 233, 135, 243, 124, 86, 162, 198, 191, 78, 75, 179, 68, 199, 138, 242, 136, 83, 120, 136, 241, 116, 137, 224, 45, 227, 142, 48, 70, 94, 208, 253, 235, 110, 235, 63, 10, 57, 48, 27, 42, 34, 243, 208, 254, 73, 61, 44, 40, 56, 118, 150, 223, 103, 149, 152 }
                         });
                 });
 
@@ -227,6 +232,14 @@ namespace TestApplication.DataAccess.Migrations
 
             modelBuilder.Entity("TestApplication.Entities.Models.UserUserType", b =>
                 {
+                    b.Property<int>("UserUserTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int")
                         .HasColumnName("UserId");
@@ -235,13 +248,9 @@ namespace TestApplication.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("UserTypeId");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.HasKey("UserUserTypeId");
 
-                    b.Property<int>("UserUserTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "UserTypeId");
+                    b.HasIndex("UserId");
 
                     b.HasIndex("UserTypeId");
 
@@ -250,17 +259,18 @@ namespace TestApplication.DataAccess.Migrations
                     b.HasData(
                         new
                         {
+                            UserUserTypeId = 1,
+                            CreatedDate = new DateTime(2021, 1, 11, 7, 4, 0, 166, DateTimeKind.Local).AddTicks(3204),
                             UserId = 1,
-                            UserTypeId = 1,
-                            CreatedDate = new DateTime(2021, 1, 11, 3, 40, 36, 167, DateTimeKind.Local).AddTicks(4739),
-                            UserUserTypeId = 1
+                            UserTypeId = 1
                         });
                 });
 
             modelBuilder.Entity("TestApplication.Entities.Views.UserFullView", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -269,8 +279,11 @@ namespace TestApplication.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("UserTypeDescription")
                         .HasColumnType("nvarchar(max)");

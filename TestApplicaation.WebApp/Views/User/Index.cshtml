@@ -64,7 +64,7 @@
                                     <tr>
                                         <td>@user.Name</td>
                                         <td>@user.Email</td>
-                                        <td>@user.Password</td>
+                                        <td class="hidetext">@user.PasswordHash.ToString().Substring(0, 6)</td>
                                         <td>@user.UserTypeName</td>
                                         <td>@user.UserTypeDescription</td>
                                         <td>                                           

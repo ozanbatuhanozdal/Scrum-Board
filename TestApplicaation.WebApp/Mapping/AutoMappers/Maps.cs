@@ -57,6 +57,9 @@ namespace TestApplication.WebApp.Mapping.AutoMappers
             //ve tam tersi iş
             CreateMap<UserListDto, User>();
 
+            CreateMap<UserUpdateDto, User>();
+            CreateMap<User, UserUpdateDto>();
+
             //UserType<-->UserTypeDto
             CreateMap<UserType, UserTypeDto>();
             CreateMap<UserTypeDto, UserType>();

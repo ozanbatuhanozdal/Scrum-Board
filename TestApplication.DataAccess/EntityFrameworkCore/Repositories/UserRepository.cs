@@ -41,8 +41,17 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
         public async Task<List<UserFullView>> GetUsersFull()
         {
             using var context = new DatabaseContext();
-            List<UserFullView> x = await context.userFullView.ToListAsync();
+            var x = await context.userFullView.Select(x => new UserFullView
+            {
+                UserId = x.UserId,
+                Email = x.Email,
+                Name = x.Name,
+                PasswordSalt = x.PasswordSalt,
+                PasswordHash = x.PasswordHash,
+                UserTypeDescription= x.UserTypeDescription,
+                UserTypeName = x.UserTypeName
 
+            }).ToListAsync();          
             return x;
         }
 
@@ -54,7 +63,8 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
                 User updateUser = await context.User.Include(p => p.userUserTypes).FirstOrDefaultAsync(x => x.UserId == user.UserId);
                 if (updateUser != null)
                 {
-                    updateUser.Password = user.Password;
+                    updateUser.PasswordHash = user.PasswordHash;
+                    updateUser.PasswordSalt = user.PasswordSalt;
                     updateUser.Name = user.Name;
                     updateUser.Email = user.Email;
                     updateUser.userUserTypes.Clear();

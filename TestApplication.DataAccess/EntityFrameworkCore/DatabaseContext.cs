@@ -6,6 +6,7 @@ using TestApplication.DataAccess.Mapping;
 using TestApplication.Entities;
 using TestApplication.Entities.Models;
 using TestApplication.Entities.Views;
+using System.Security.Cryptography;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore
 {
@@ -59,13 +60,15 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
             };
 
             modelBuilder.Entity<UserType>().HasData(UserTypes);
-
+            using var hmac = new HMACSHA512();
             //hazır bir kullanıcı
             User users = new()
             {
                 UserId = 1,
                 Name = "Batuhan",
-                Password = "123",
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("123")),
+                PasswordSalt = hmac.Key,
+                Guid = Guid.NewGuid().ToString(),
                 Email = "ozanbatuhanozdal@hotmail.com"
             };
                 
