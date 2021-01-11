@@ -16,6 +16,9 @@ using TestApplication.BusinessLayer.DependencyResolvers;
 using TestApplication.Common.Helpers.StringInfos;
 using TestApplication.WebApp.Models.Interfaces;
 using TestApplication.WebApp.Models.Managers;
+using TestApplication.WebApp.Services;
+using TestApplication.WebApp.Services.Interfaces;
+using TestApplication.WebApp.Services.Managers;
 
 namespace TestApplicaation.WebApp
 {
@@ -31,7 +34,13 @@ namespace TestApplicaation.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ILoggedUserProvider, LoggedUserProvider>();            
+            services.AddDependencies();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<ILoggedUserProvider, LoggedUserProvider>();
+            var emailConfig = Configuration
+            .GetSection("EmailConfiguration")
+            .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
             services.AddHttpContextAccessor();
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMvc()
@@ -60,7 +69,7 @@ namespace TestApplicaation.WebApp
                 };
             });
       
-            services.AddDependencies();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

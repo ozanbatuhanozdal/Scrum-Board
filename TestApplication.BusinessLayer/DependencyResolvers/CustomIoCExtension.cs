@@ -33,6 +33,8 @@ namespace TestApplication.BusinessLayer.DependencyResolvers
             services.AddScoped<IUserTypeRepository, UserTypeRepository>();
 
             services.AddScoped<IJwtManager, JwtManager>();
+
+
         }
 
     }

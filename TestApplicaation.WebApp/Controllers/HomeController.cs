@@ -19,6 +19,7 @@ using TestApplication.CustomFilters;
 using TestApplication.Entities.Models;
 using TestApplication.WebApp.Models;
 using TestApplication.WebApp.Models.Interfaces;
+using TestApplication.WebApp.Services.Interfaces;
 
 namespace TestApplication.WebApp.Controllers
 {
@@ -29,14 +30,16 @@ namespace TestApplication.WebApp.Controllers
         private readonly IUserManager _userManager;
         private readonly ICustomerCardManager _customerCardManager;
         private readonly ICustomerManager _customerManager;
+        private readonly IEmailSender _emailSender;
         private readonly IMapper _mapper;
 
-        public HomeController(ILoggedUserProvider loggedUserProvider,ICustomerCardManager customerCardManager,ICustomerManager customerManager,IMapper mapper,IHttpContextAccessor httpContextAccessor,IUserManager userManager) : base(loggedUserProvider)
+        public HomeController(ILoggedUserProvider loggedUserProvider,IEmailSender emailSender,ICustomerCardManager customerCardManager,ICustomerManager customerManager,IMapper mapper,IHttpContextAccessor httpContextAccessor,IUserManager userManager) : base(loggedUserProvider)
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _customerCardManager = customerCardManager;
             _customerManager = customerManager;
+            _emailSender = emailSender;
             _mapper = mapper;
             
         }
@@ -158,6 +161,90 @@ namespace TestApplication.WebApp.Controllers
 
             }
         }
+
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(UserForgotPasswordDto forgotPasswordDto)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = _userManager.Find(x => x.Email == forgotPasswordDto.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Your Email is wrong");
+                    return View(forgotPasswordDto);
+                }
+                else
+                {
+                    user.Guid = Guid.NewGuid().ToString();
+                    _userManager.UpdateAsync(user);
+                    _emailSender.SendEmail(forgotPasswordDto.Email, user.Guid);
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return View(forgotPasswordDto);
+            }
+
+        }
+
+        [Route("[controller]/{action}/{id}")]
+        public IActionResult ChangePassword(Guid id)
+        {
+            User PasswordChangeUser = _userManager.Find(x => x.Guid == id.ToString());
+            if (PasswordChangeUser == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                UserChangePasswordDto user = new UserChangePasswordDto
+                {
+                    UserId = PasswordChangeUser.UserId
+                };
+
+                return View(user);
+
+            }
+        }
+        [HttpPost]
+        [Route("[controller]/{action}/{id}")]
+        public IActionResult ChangePassword(UserChangePasswordDto userChangePassword)
+        {
+            if (ModelState.IsValid)
+            {
+                if (userChangePassword.Password == userChangePassword.CorrectPassword)
+                {
+                    User updateUser = _userManager.Find(x => x.UserId == userChangePassword.UserId);
+                    using var hmac = new HMACSHA512();
+                    updateUser.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userChangePassword.Password));
+                    updateUser.PasswordSalt = hmac.Key;
+                    updateUser.Guid = Guid.NewGuid().ToString();
+                    _userManager.UpdateAsync(updateUser);
+                    return RedirectToAction("Login", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Password and Verify password cannot match");
+                    return View(userChangePassword);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Write your password");
+
+                return View(userChangePassword);
+
+            }
+
+        }
+
 
         public IActionResult Signout()
         {
