@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestApplication.Common.Dto.UserDtos;
 using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
 using TestApplication.Entities.Models;
+using TestApplication.Entities.Views;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
 {
-    public class UserRepository : RepositoryBase<User> , IUserRepository
+    public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         //entity bazlı somut repository sınıflarımızdır.
         //UserRepository
@@ -36,6 +38,15 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
             }).ToListAsync();
         }
 
+        public async Task<List<UserFullView>> GetUsersFull()
+        {
+            using var context = new DatabaseContext();
+            List<UserFullView> x = await context.userFullView.ToListAsync();
+
+            return x;
+        }
+
+        
         public async Task EditUser(User user)
         {
             using var context = new DatabaseContext();

@@ -9,6 +9,7 @@ using TestApplication.BusinessLayer.Interfaces;
 using TestApplication.Common.Dto.UserDtos;
 using TestApplication.Common.Dto.UserTypeDtos;
 using TestApplication.Entities.Models;
+using TestApplication.Entities.Views;
 using TestApplication.WebApp.Models.Interfaces;
 
 namespace TestApplication.WebApp.Controllers
@@ -33,7 +34,8 @@ namespace TestApplication.WebApp.Controllers
         {
             List<User> users = await _userManager.GetAllASync();
             List<UserListDto> userListDto = _mapper.Map<List<UserListDto>>(users);
-            return View(userListDto);
+            List<UserFullView> user = await _userManager.GetUsersFull();
+            return View(user);
         }
         //creata get
         public async  Task<IActionResult> Create()

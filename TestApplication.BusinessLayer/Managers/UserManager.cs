@@ -8,6 +8,7 @@ using TestApplication.Common.Dto.UserDtos;
 using TestApplication.DataAccess.EntityFrameworkCore;
 using TestApplication.DataAccess.EntityFrameworkCore.Interfaces;
 using TestApplication.Entities.Models;
+using TestApplication.Entities.Views;
 
 namespace TestApplication.BusinessLayer.Managers
 {
@@ -28,6 +29,11 @@ namespace TestApplication.BusinessLayer.Managers
             return user.Password == userLoginDto.Password ? true : false;
 
 
+        }
+
+        public async Task<List<UserFullView>> GetUsersFull()
+        {
+            return await _userRepository.GetUsersFull();
         }
 
         public async Task<User> FindByEmail(string email)

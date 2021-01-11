@@ -10,8 +10,8 @@ using TestApplication.DataAccess.EntityFrameworkCore;
 namespace TestApplication.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210109174020_CreateInital")]
-    partial class CreateInital
+    [Migration("20210111004036_first-init")]
+    partial class firstinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,7 +183,7 @@ namespace TestApplication.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2021, 1, 9, 20, 40, 18, 921, DateTimeKind.Local).AddTicks(8797),
+                            CreatedDate = new DateTime(2021, 1, 11, 3, 40, 36, 166, DateTimeKind.Local).AddTicks(5539),
                             Email = "ozanbatuhanozdal@hotmail.com",
                             Name = "Batuhan",
                             Password = "123"
@@ -252,9 +252,35 @@ namespace TestApplication.DataAccess.Migrations
                         {
                             UserId = 1,
                             UserTypeId = 1,
-                            CreatedDate = new DateTime(2021, 1, 9, 20, 40, 18, 925, DateTimeKind.Local).AddTicks(1568),
+                            CreatedDate = new DateTime(2021, 1, 11, 3, 40, 36, 167, DateTimeKind.Local).AddTicks(4739),
                             UserUserTypeId = 1
                         });
+                });
+
+            modelBuilder.Entity("TestApplication.Entities.Views.UserFullView", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserTypeDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserTypeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToView("userView");
                 });
 
             modelBuilder.Entity("TestApplication.Entities.CustomerCardRow", b =>

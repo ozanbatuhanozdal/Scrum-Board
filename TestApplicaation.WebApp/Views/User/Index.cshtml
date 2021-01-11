@@ -1,7 +1,7 @@
-﻿@using TestApplication.Common.Dto.UserDtos
+﻿@using TestApplication.Entities.Views
 
 
-@model List<UserListDto>
+@model List<UserFullView>
 @{
     ViewData["Title"] = "Index";
 
@@ -53,6 +53,8 @@
                                     <th>Developer Name</th>
                                     <th>Developer Email</th>
                                     <th>Developer Password</th>
+                                    <th>Developer Type</th>
+                                    <th>Developer Type Description</th>
                                     <th>Edit/Delete</th>
                                 </tr>
                             </thead>
@@ -63,11 +65,11 @@
                                         <td>@user.Name</td>
                                         <td>@user.Email</td>
                                         <td>@user.Password</td>
+                                        <td>@user.UserTypeName</td>
+                                        <td>@user.UserTypeDescription</td>
                                         <td>                                           
                                             <a href="@Url.Action("Edit", "User", new { id = user.UserId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
                                             <a href="@Url.Action("Delete", "User", new { id = user.UserId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
-
-
                                         </td>
                                     </tr>
                                 }

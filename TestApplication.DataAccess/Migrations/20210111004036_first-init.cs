@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplication.DataAccess.Migrations
 {
-    public partial class CreateInital : Migration
+    public partial class firstinit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -130,7 +130,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "CreatedDate", "eMail", "Name", "password" },
-                values: new object[] { 1, new DateTime(2021, 1, 9, 20, 40, 18, 921, DateTimeKind.Local).AddTicks(8797), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
+                values: new object[] { 1, new DateTime(2021, 1, 11, 3, 40, 36, 166, DateTimeKind.Local).AddTicks(5539), "ozanbatuhanozdal@hotmail.com", "Batuhan", "123" });
 
             migrationBuilder.InsertData(
                 table: "UserType",
@@ -140,7 +140,7 @@ namespace TestApplication.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "userUserTypes",
                 columns: new[] { "UserId", "UserTypeId", "CreatedDate", "UserUserTypeId" },
-                values: new object[] { 1, 1, new DateTime(2021, 1, 9, 20, 40, 18, 925, DateTimeKind.Local).AddTicks(1568), 1 });
+                values: new object[] { 1, 1, new DateTime(2021, 1, 11, 3, 40, 36, 167, DateTimeKind.Local).AddTicks(4739), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerCard_CustomerId",

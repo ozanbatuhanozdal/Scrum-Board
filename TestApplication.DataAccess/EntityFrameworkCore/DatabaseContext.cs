@@ -5,6 +5,7 @@ using System.Text;
 using TestApplication.DataAccess.Mapping;
 using TestApplication.Entities;
 using TestApplication.Entities.Models;
+using TestApplication.Entities.Views;
 
 namespace TestApplication.DataAccess.EntityFrameworkCore
 {
@@ -23,6 +24,8 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
         public DbSet<UserType> UserType { get; set; }
         
         public DbSet<UserUserType> userUserTypes { get; set; }
+
+        public virtual DbSet<UserFullView> userFullView { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -72,6 +75,12 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
             //belirtilen varlığa geçişler için çekirdek verileri sağlamaya 
             //yardımcı olmak için tasarlanmıştır.
             modelBuilder.Entity<UserUserType>().HasData(new UserUserType { UserUserTypeId = 1, UserId=1 ,UserTypeId =1 });
+            modelBuilder.Entity<UserFullView>(x =>
+            {
+                x.HasKey(e => e.UserId);
+                x.ToView("userView");
+                x.Property(x => x.Name).HasMaxLength(50);
+            });
         }
 
 
