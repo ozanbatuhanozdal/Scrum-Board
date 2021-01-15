@@ -38,8 +38,26 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
             };
 
             using var context = new DatabaseContext();   
-            await context.Database.ExecuteSqlRawAsync($"[dbo].[CustomerAdd] @CustomerName,@CustomerAddress,@CustomerPhone, @CreatedDate",param);                    
+            await context.Database.ExecuteSqlRawAsync($"[dbo].[CustomerAdd] @CustomerName,@CustomerPhone,@CustomerAddress, @CreatedDate",param);                    
             await context.SaveChangesAsync();
+        }
+
+
+
+        public async Task DeleteCustomer(int id) {
+            var param = new SqlParameter[]
+            {
+            new SqlParameter()
+             {
+                ParameterName = "@id",
+                Value = id,
+             }
+            };
+
+            using var context = new DatabaseContext();
+            await context.Database.ExecuteSqlRawAsync($"[dbo].[CustomerDelete] @id", param);
+            await context.SaveChangesAsync();
+
         }
 
         //public async Task<List<Customer>> GetCustomerCards()

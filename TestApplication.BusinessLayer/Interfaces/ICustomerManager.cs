@@ -9,5 +9,6 @@ namespace TestApplication.BusinessLayer.Interfaces
     public interface ICustomerManager : IManagerBase<Customer>
     {
         Task AddCustomer(Customer customer);
+        Task DeleteCustomer(int id);
     }
 }

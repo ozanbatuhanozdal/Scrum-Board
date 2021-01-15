@@ -12,6 +12,7 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
     {
         Task<List<UserType>> GetRolesByEmail(string email);
         Task<List<UserFullView>> GetUsersFull();
+        Task<List<GetAdminUsersView>> GetAdminUsersView();
 
         Task EditUser(User user);
     }

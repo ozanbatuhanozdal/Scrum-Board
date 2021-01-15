@@ -45,6 +45,11 @@ namespace TestApplication.BusinessLayer.Managers
             return await _userRepository.GetUsersFull();
         }
 
+        public async Task<List<GetAdminUsersView>> GetAdminUsersView()
+        {
+            return await _userRepository.GetAdminUsersView();
+        }
+
         public async Task<User> FindByEmail(string email)
         {
             return await _userRepository.GetAsync(x => x.Email == email);

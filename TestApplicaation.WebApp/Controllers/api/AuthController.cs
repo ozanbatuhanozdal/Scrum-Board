@@ -59,7 +59,8 @@ namespace TestApplication.WebApp.Controllers.api
             UserDto userDto = new UserDto
             {
                 UserId = user.UserId,                
-                Email = user.Email,                
+                Email = user.Email,           
+                Name = user.Name,
                 Roles = roles.Select(x => x.UserTypeName).ToList()
 
             };

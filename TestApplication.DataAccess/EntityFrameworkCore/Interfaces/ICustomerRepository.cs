@@ -11,5 +11,6 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Interfaces
     {
 
         Task AddCustomer(Customer customer);
+        Task DeleteCustomer(int id);
     }
 }

@@ -178,6 +178,12 @@ namespace TestApplication.WebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> AdminUsers()
+        {
+            var x = await _userManager.GetAdminUsersView();
+            return View(x);
+        }
+
 
 
 

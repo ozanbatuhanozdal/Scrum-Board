@@ -38,6 +38,21 @@ namespace TestApplication.DataAccess.EntityFrameworkCore.Repositories
             }).ToListAsync();
         }
 
+        public async Task<List<GetAdminUsersView>> GetAdminUsersView()
+        {
+            using var context = new DatabaseContext();
+
+            var y = await context.adminUserView.Select(x => new GetAdminUsersView
+            {
+                UserId = x.UserId,                
+                Email = x.Email,
+                Name = x.Name,
+                UserTypeName = x.UserTypeName
+            }).ToListAsync();
+
+            return y;
+        }
+
         public async Task<List<UserFullView>> GetUsersFull()
         {
             using var context = new DatabaseContext();

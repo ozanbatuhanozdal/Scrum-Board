@@ -99,7 +99,7 @@ namespace TestApplication.WebApp.Controllers
         public async Task<IActionResult> Delete(CustomerListDto customerListDto)
         {
             Customer deletedCustomer = _mapper.Map<Customer>(customerListDto);
-            await _customerManager.RemoveAsync(deletedCustomer);
+            await _customerManager.DeleteCustomer(deletedCustomer.CustomerId);
             return RedirectToAction("Index");
         }
 

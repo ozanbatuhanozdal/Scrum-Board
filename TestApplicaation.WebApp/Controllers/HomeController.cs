@@ -145,7 +145,7 @@ namespace TestApplication.WebApp.Controllers
                 }
                 User addUser = _mapper.Map<User>(userRegisterDto);
                 List<UserUserType> userUserType = new List<UserUserType>();
-                userUserType.Add(new UserUserType() { UserId = addUser.UserId, UserTypeId = 1 });
+                userUserType.Add(new UserUserType() { UserId = addUser.UserId, UserTypeId = 2 });
                 using var hmac = new HMACSHA512();
                 addUser.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userRegisterDto.Password));
                 addUser.PasswordSalt = hmac.Key;

@@ -25,5 +25,10 @@ namespace TestApplication.BusinessLayer.Managers
         {
             await _customerRepository.AddCustomer(customer);
         }
+
+        public async Task DeleteCustomer(int id)
+        {
+            await _customerRepository.DeleteCustomer(id);
+        }
     }
 }

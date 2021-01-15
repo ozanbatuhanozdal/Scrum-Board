@@ -1,9 +1,12 @@
 ﻿@using TestApplication.Entities.Views
 
 
-@model List<UserFullView>
+@model List<GetAdminUsersView>
+
+
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Admin Users";
 
 
 }
@@ -44,18 +47,15 @@
                 <div class="card">
                     <div class="card-header">
                         <a href="@Url.Action("Create", "User")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New Developer</a>
-                        <a href="@Url.Action("AdminUsers", "User")" class="btn btn-info" style="float:right"><i class="fa fa-user-tie p-1"></i>Admin Users</a>
-                    </div>                    
+                    </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Developer Name</th>
-                                    <th>Developer Email</th>
-                                    <th>Developer Password</th>
-                                    <th>Developer Type</th>
-                                    <th>Developer Type Description</th>
+                                    <th>Developer Email</th>                                   
+                                    <th>Developer Type</th>                                 
                                     <th>Edit/Delete</th>
                                 </tr>
                             </thead>
@@ -65,9 +65,7 @@
                                     <tr>
                                         <td>@user.Name</td>
                                         <td>@user.Email</td>
-                                        <td class="hidetext">@user.PasswordHash.ToString().Substring(0, 6)</td>
-                                        <td>@user.UserTypeName</td>
-                                        <td>@user.UserTypeDescription</td>
+                                        <td>@user.UserTypeName</td>                                      
                                         <td>
                                             <a href="@Url.Action("Edit", "User", new { id = user.UserId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
                                             <a href="@Url.Action("Delete", "User", new { id = user.UserId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>

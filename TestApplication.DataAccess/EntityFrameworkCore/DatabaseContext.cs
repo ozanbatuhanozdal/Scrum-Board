@@ -28,6 +28,8 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
 
         public virtual DbSet<UserFullView> userFullView { get; set; }
 
+        public virtual DbSet<GetAdminUsersView> adminUserView { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
@@ -82,6 +84,13 @@ namespace TestApplication.DataAccess.EntityFrameworkCore
             {
                 x.HasKey(e => e.UserId);
                 x.ToView("userView");
+                x.Property(x => x.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<GetAdminUsersView>(x =>
+            {
+                x.HasKey(e => e.UserId);
+                x.ToView("GetAdminUsers");
                 x.Property(x => x.Name).HasMaxLength(50);
             });
         }
