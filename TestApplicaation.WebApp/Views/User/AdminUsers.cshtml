@@ -46,7 +46,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <a href="@Url.Action("Create", "User")" class="btn btn-primary"><i class="fa fa-plus p-1"></i>Create New Developer</a>
+                        <a href="@Url.Action("Index", "User")" class="btn btn-primary"><i class="fa fa-users p-1"></i>User List</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -56,7 +56,7 @@
                                     <th>Developer Name</th>
                                     <th>Developer Email</th>                                   
                                     <th>Developer Type</th>                                 
-                                    <th>Edit/Delete</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,10 +66,7 @@
                                         <td>@user.Name</td>
                                         <td>@user.Email</td>
                                         <td>@user.UserTypeName</td>                                      
-                                        <td>
-                                            <a href="@Url.Action("Edit", "User", new { id = user.UserId })" class="btn btn-warning"><i class="fa fa-wrench"></i></a>
-                                            <a href="@Url.Action("Delete", "User", new { id = user.UserId })" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
-                                        </td>
+                                      
                                     </tr>
                                 }
 
