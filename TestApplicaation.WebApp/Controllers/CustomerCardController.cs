@@ -120,11 +120,13 @@ namespace TestApplication.WebApp.Controllers
             List<CustomerCardRowAddDto> customerCardRowAddDto = _mapper.Map<List<CustomerCardRowAddDto>>(customerCardRows);
 
             CustomerCardAddDto customerCardAddDto = _mapper.Map<CustomerCardAddDto>(customerCard);
+            List<User> users = await _userManager.GetAllASync();
+            var  user = users.Find(x => x.Name == customerCard.ProductManagerName);
 
             customerCardAddDto.CustomerCardRowAddDto = customerCardRowAddDto;
             ViewBag.CustomerId = new SelectList(await _customerManager.GetAllASync(x => x.CustomerId == customerCard.CustomerId), "CustomerId", "CustomerName");
-            ViewBag.DeveloperName = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
-            ViewBag.ProductId = new SelectList(await _userManager.GetAllASync(), "UserId", "Name");
+            ViewBag.DeveloperName = new SelectList(users, "UserId", "Name");
+            ViewBag.ProductId = new SelectList(users, "UserId", "Name",user.UserId);
             customerCardAddDto.FinishedDate = DateTime.Now;
             return View(customerCardAddDto);
         }
